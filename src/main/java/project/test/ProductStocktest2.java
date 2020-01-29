@@ -1,6 +1,7 @@
 package project.test;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import project.dao.impl.ProductStockImple2;
@@ -13,7 +14,7 @@ public class ProductStocktest2 {
 		 int flag=1;
 			do
 			{
-		System.out.println("/t MENU");
+		System.out.println("\t MENU");
 		System.out.println("1.ADDING Product");
 		System.out.println("2.UPDATE product");
 		System.out.println("3.DISPLAY product");
@@ -24,7 +25,7 @@ public class ProductStocktest2 {
 		{
 		case 1:
 		{
-			System.out.println("INSERTING PRODUCTS");
+			System.out.println("\t INSERTING PRODUCTS");
 			ProductStockImple2 pst=new ProductStockImple2();
 			ProductStock ps=new ProductStock();
 			System.out.println("Enter the Stock_id");
@@ -41,13 +42,33 @@ public class ProductStocktest2 {
 		}break;
 		case 2:
 		{
-			System.out.println("UPDATE PRODUCTS");
+			System.out.println("\t UPDATE PRODUCTS");
 			ProductStockImple2 pst=new ProductStockImple2();
-			ProductStock ps=new ProductStock();
-			System.out.println("Enter the Stock_id");
-			ps.stockid=s.nextInt();
+			ProductStock product=new ProductStock();
+			System.out.println("Enter the Product Number");
+			product.productno=s.nextInt();
 			System.out.println("Enter the Quantity");
-			ps.quantity=s.nextInt();
+			product.quantity=s.nextInt();
+			pst.updateproduct(product);
+		}break;
+		case 3:
+		{
+			System.out.println("\t DISPLAY PRODUCTS");
+			ProductStockImple2 pst=new ProductStockImple2();
+			List<ProductStock>list=pst.Displayproduct();
+			for ( ProductStock  p: list) {
+				System.out.println(p.toString());
+			}
+			
+		}break;
+		case 4:
+		{
+			System.out.println("\t DELETE PRODUCT");
+			ProductStockImple2 psi=new ProductStockImple2();
+			ProductStock product=new ProductStock();
+			System.out.println("Enter the Product Number");
+			product.productno=s.nextInt();
+			psi.deleteproductDetails(product);
 		}
 		}
 		System.out.println("Do u want to continue 1/0 ");

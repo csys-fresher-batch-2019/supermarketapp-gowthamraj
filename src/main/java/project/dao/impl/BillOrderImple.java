@@ -9,6 +9,7 @@ import java.sql.Statement;
 
 import project.dao.BillOrderDAO;
 import project.model.Billorder;
+import project.model.Bills;
 
 public class BillOrderImple implements BillOrderDAO {
 	public static Connection getConnection() throws Exception {
@@ -27,6 +28,13 @@ public class BillOrderImple implements BillOrderDAO {
 		pst.setInt(3,billorder.quantity);
 		pst.setFloat(4,billorder.price);
 		pst.executeUpdate();
+		
+		int no=101;
+		String sql1="update bills set total=(select sum(price) from bill_order where customer_no=?) where cus_no=?";
+		PreparedStatement pst1 =con.prepareStatement(sql1);
+		pst1.setInt(1,billorder.customerno);
+		pst1.setInt(2,no);
+		pst1.executeUpdate();
 		con.close();
 	}
 

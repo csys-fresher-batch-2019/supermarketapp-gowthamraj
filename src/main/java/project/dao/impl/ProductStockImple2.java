@@ -1,11 +1,10 @@
 package project.dao.impl;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import project.dao.ProductStockDAO2;
 import project.model.ProductStock;
 
@@ -37,19 +36,39 @@ public class ProductStockImple2 implements ProductStockDAO2 {
 	@Override
 	public void deleteproductDetails(ProductStock product) throws Exception {
 		JdbcTemplate jdbctemplate=ProductImple2.getJdbcTemplate();
-		String sql="update product_stock set quantity=? where product_no=?";
-		int row=jdbctemplate.update(sql,product.productno,product.quantity);
+		String sql="delete from product_stock where product_no=?";
+		Object[] params= {product.productno};
+		int row=jdbctemplate.update(sql,params);
 		System.out.println(row);
 	}
 
 	@Override
-	public List<ProductStock> Displayproduct() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ProductStock> Displayproduct() throws Exception {JdbcTemplate jdbctemplate=ProductImple2.getJdbcTemplate();
+	String sql= "select  product_no,stock_id,quantity,product_arrival,expery_date from product_stock";
+	List<ProductStock>list=jdbctemplate.query(sql,(rs,rowNo)->{
+		ProductStock p = new ProductStock();
+		p.productno=rs.getInt("product_no");
+		p.stockid=rs.getInt("stock_id");
+		p.quantity=rs.getInt("quantity");
+		Date ds=rs.getDate("product_arrival");
+		LocalDate pa1=ds.toLocalDate();
+		p.productarrival=pa1;
+		Date ds1=rs.getDate("product_arrival");
+		LocalDate pa=ds1.toLocalDate();
+		p.experydate=pa;
+		return p;
+
+	});
+	return list;
 	}
 
 	@Override
 	public void updateproduct(ProductStock product) throws Exception {
+		JdbcTemplate jdbctemplate=ProductImple2.getJdbcTemplate();
+		String sql="update product_stock set  quantity=? where product_no=?";
+		Object[] params= {product.quantity,product.productno};
+		int row=jdbctemplate.update(sql,params);
+		System.out.println(row);
 		// TODO Auto-generated method stub
 
 	}

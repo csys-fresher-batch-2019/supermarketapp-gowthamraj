@@ -48,7 +48,7 @@ public class CustomerCardImpl implements CustomerCardDAO {
 	public void displayCustomerCard(customerCard customercard) throws Exception, Exception {
 		// TODO Auto-generated method stub
 		Connection con=getConnection();
-		String sql="select * from customer_card";
+		String sql="select customer_name,mobile_number,address from customer_card";
 		Statement st1 =con.createStatement();
 		ResultSet rs=st1.executeQuery(sql);
 		while(rs.next())

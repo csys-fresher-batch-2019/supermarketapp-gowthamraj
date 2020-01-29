@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-import project.dao.impl.CaseImple;
+import project.dao.impl.CaseImple2;
 import project.model.Bills;
+import project.model.CustomerBill;
 import project.model.Employee;
 
-public class CaseTest {
-
+public class CaseTest2 {
 	public static void main(String[] args) throws Exception {
 		int flag = 1;
 		Scanner s = new Scanner(System.in);
@@ -17,7 +17,6 @@ public class CaseTest {
 			System.out.println("\t menu \n");
 			System.out.println("\t*-*_* \n");
 			System.out.println("1.Employee Count");
-			//System.out.println("2.Product Price Between");
 			System.out.println("2.customer card holder purchase");
 			System.out.println("3.Today income");
 			System.out.println("4.Total Income");
@@ -27,39 +26,25 @@ public class CaseTest {
 			switch (choice) {
 			case 1: {
 				System.out.println("\t Employee count");
-				CaseImple ci = new CaseImple();
-				Employee e = new Employee();
+				CaseImple2 ci = new CaseImple2();
+				Employee e=new Employee();
 				ci.EmployeeCount(e);
 
 			}
-				break;/*
-			case 2: {
-				System.out.println("\t Product price choose this-to-this");
-				CaseImple ci = new CaseImple();
-				System.out.println("Enter the minimum price");
-				int price = s.nextInt();
-				System.out.println("Enter the max price");
-				int price1 = s.nextInt();
-				List<Product> products = ci.ProductPriceBetween(price, price1);
-				for (Product product : products) {
-					System.out.println(product);
-				}
-			}
-				break;*/
+				break;
 			case 2: {
 				System.out.println("\tcustomer card holder purchase\"");
-				CaseImple ci = new CaseImple();
+				CaseImple2 ci = new CaseImple2();
 				Bills b=new Bills();
-				List<Bills>bills=ci.FinalBills(b);
-				for (Bills bills2 : bills) {
-					System.out.println(bills2.customername +""+bills2.total);
+				List<Bills> list=ci.CustomerCount(b);
+				for (Bills bills : list) {
+					System.out.println(bills);
 				}
-
 			}
 				break;
 			case 3: {
 				System.out.println("Today income");
-				CaseImple ci = new CaseImple();
+				CaseImple2 ci = new CaseImple2();
 				System.out.println("Enter the date");
 				String date = s.next();
 				LocalDate la = LocalDate.parse(date);
@@ -70,7 +55,7 @@ public class CaseTest {
 				break;
 			case 4: {
 				System.out.println("Total Income ");
-				CaseImple ci = new CaseImple();
+				CaseImple2 ci = new CaseImple2();
 				Bills b = new Bills();
 				int total=ci.TotalIncome(b);
 				System.out.println("Total income ="+total);
@@ -79,11 +64,11 @@ public class CaseTest {
 			case 5:
 			{
 				System.out.println("Number of customer purchase by date ");
-				CaseImple ci = new CaseImple();
+				CaseImple2 ci = new CaseImple2();
 				Bills b=new Bills();
 				List<Bills>bills=ci.CustomerCount(b);
 				for (Bills bills2 : bills) {
-					System.out.println(bills2.customerno+""+bills2.billdate);
+					System.out.println("Customer Count"+bills2.customerno+"\t Date"+bills2.billdate);
 				}
 				
 			}
@@ -102,3 +87,6 @@ public class CaseTest {
 
 	}
 }
+
+
+

@@ -70,13 +70,9 @@ public class CaseImple implements CaseDAO {
 		while (rs.next()) {
 			total = rs.getInt("daily_income");
 		}
-
 		con.close();
-
 		return total;
 	}
-
-	
 			@Override
 			public List<Product> ProductPriceBetween(int min, int max) throws Exception {
 				Connection con = getConnection();
@@ -129,7 +125,7 @@ public class CaseImple implements CaseDAO {
 		@Override
 	public List<Bills> FinalBills(Bills bills) throws Exception {
 		Connection con = getConnection();
-		String sql = "select customer_name,(select total from bills where customer_name=c.customer_name)as customer_card_holder_purchase from customer_card c";
+		String sql = "select c.customer_name,b.total from customer_card c,bills b where c.customer_name=b.customer_name";
 		List<Bills> list = new ArrayList<Bills>();
 		Statement st=con.createStatement();
 		ResultSet rs=st.executeQuery(sql);
@@ -145,6 +141,7 @@ public class CaseImple implements CaseDAO {
 
 		}
 		con.close();
+		st.close();
 
 		return list;
 		
