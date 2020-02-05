@@ -1,8 +1,8 @@
 package project.test;
 import java.util.Scanner;
+
+
 import supermarket.logger;
-import citipe.servicelayer.*;
-import project.model.OrderItem;
 public class payment 
 {
 	private static final logger log=logger.getInstance();
@@ -83,13 +83,13 @@ public class payment
 		{
 			log.getInput("CASH ON DELIVERY");
 			log.getInput("Enter the amount");
-			int  a=s.nextInt();
+			
 			log.getInput("thanks for puchasing !..");
 		}break;
 		
 		case 4:
 		{
-			OrderItem b=new OrderItem();
+			/*OrderItem b=new OrderItem();
 			log.getInput("\t WALLET PAYMENT");
 			UserService userService = new UserService();
 			log.getInput("Enter the mobile number");
@@ -112,7 +112,7 @@ public class payment
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			}*/
 		
 		}
 }log.getInput("Do u want to continue(y/n):press(1/0)");
