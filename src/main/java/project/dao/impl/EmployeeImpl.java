@@ -8,11 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-
 import project.dao.EmployeeDAO;
 import project.model.Employee;
+import supermarket.logger;
 
 public class EmployeeImpl implements EmployeeDAO {
+	private static final logger log=logger.getInstance();
 	public static Connection getConnection() throws ClassNotFoundException, SQLException
 	{
 		Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -27,17 +28,18 @@ public class EmployeeImpl implements EmployeeDAO {
 		Connection con= getConnection();
 		String sql="insert into employee(employee_id,employee_name,dob,doj,mobile_no,address) values( emp_idd.nextval,?,?,?,?,?)";
 		PreparedStatement pst =con.prepareStatement(sql);
-		pst.setString(1,employee.employeename);
-		pst.setDate(2,Date.valueOf(employee.dob));
-		pst.setDate(3, Date.valueOf(employee.doj));
-		pst.setLong(4,employee.mobileno);
-		pst.setString(5,employee.address);
+		pst.setString(1,employee.getEmployeename());
+		pst.setDate(2,Date.valueOf(employee.getDob()));
+		pst.setDate(3, Date.valueOf(employee.getDoj()));
+		pst.setLong(4,employee.getMobileno());
+		pst.setString(5,employee.getAddress());
 		pst.executeUpdate();
 		con.close();
+		pst.close();
 	}
 
 	@Override
-	public void DisplayEmployeeDetils(Employee employee) throws Exception {
+	public void displayEmployeeDetils(Employee employee) throws Exception {
 		Connection con=getConnection();
 		String sql="select * from employee";
 		Statement stmt=con.createStatement();
@@ -52,31 +54,35 @@ public class EmployeeImpl implements EmployeeDAO {
 			LocalDate ex=ar1.toLocalDate();
 			long mobile=rs.getLong("mobile_no");
 			String add=rs.getString("address");
-			System.out.println("Employee ID ="+id+"Employee name ="+name+"Date of Birth ="+pa1+"Date of Joining "+ex+"Mobile Number ="+mobile+"Address ="+add);
+			log.getInput("Employee ID ="+id+"Employee name ="+name+"Date of Birth ="+pa1+"Date of Joining "+ex+"Mobile Number ="+mobile+"Address ="+add);
 		}
 		con.close();
+		stmt.close();
+		rs.close();
 		}
 	@Override
-	public void DeleteEmployeeDetils(Employee employee) throws Exception {
+	public void deleteEmployeeDetils(Employee employee) throws Exception {
 		Connection con=getConnection();
 		String ins="delete from employee where employee_name=?";
 		PreparedStatement pst=con.prepareStatement(ins);
-		pst.setString(1,employee.employeename);
+		pst.setString(1,employee.getEmployeename());
 		pst.executeUpdate();
 		// TODO Auto-generated method stub
 		con.close();
+		pst.close();
 	}
 
 	@Override
-	public void UpdateEmployeeDetils(Employee employee) throws Exception {
+	public void updateEmployeeDetils(Employee employee) throws Exception {
 		Connection con=getConnection();
 		String sql= "update employee set address=? where  employee_name=?";
 		PreparedStatement pst=con.prepareStatement(sql);
-		pst.setString(2, employee.employeename);
-		pst.setString(1,employee.address);
+		pst.setString(2, employee.getEmployeename());
+		pst.setString(1,employee.getAddress());
 		pst.executeUpdate();
 		// TODO Auto-generated method stub
 		con.close();
+		pst.close();
 	}
 		
 	}

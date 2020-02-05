@@ -1,11 +1,11 @@
 package project.dao;
 
-import project.model.Bills;
+import project.model.OrderItem;
 
 public interface BillsDAO {
-	public void addBills(Bills bills) throws Exception;
-	public void deleteBills(Bills bills)throws Exception;
-	public void displayBills(Bills bills)throws Exception;
-	public void updateBills(Bills bills)throws Exception;
+	public void addBills(OrderItem bills) throws Exception;
+	public void deleteBills(OrderItem bills)throws Exception;
+	public void displayBills(OrderItem bills)throws Exception;
+	public void updateBills(OrderItem bills)throws Exception;
 	
 }

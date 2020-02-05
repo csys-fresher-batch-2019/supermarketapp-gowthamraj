@@ -1,16 +1,15 @@
-package project.test;
+package spring.test;
+
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
-import project.dao.impl.EmployeeImpl;
-import project.model.Employee;
+import spring.dao.impl.EmployeeImpl2;
 import supermarket.logger;
+import project.model.Employee;
 
-public class EmployeeTest {
-
-	
+public class EmployeeTest2 {
 	private static final logger log=logger.getInstance();
-		public static void main(String[] args) throws Exception {
-			
+	public static void main(String[] args) throws Exception {
 		int flag=1;
 		Scanner s =new Scanner (System.in);
 		do
@@ -26,10 +25,9 @@ public class EmployeeTest {
 		case 1:
 		{
 			log.getInput("\t Insert \n");
-			EmployeeImpl ei=new EmployeeImpl();
+			EmployeeImpl2 ei=new EmployeeImpl2();
 			Employee em=new Employee();
-			log.getInput("Enter the EmployeeId ");
-			em.setEmployeeid(s.nextInt());
+			
 			log.getInput("Enter the Employee Name");
 			em.setEmployeename(s.next());
 			log.getInput("Enter the Date Of birth");
@@ -42,7 +40,7 @@ public class EmployeeTest {
 			em.setMobileno((int) s.nextLong());
 			log.getInput("Enter the address");
 			em.setAddress(s.next());
-			ei.addEmployeeDetils(em);
+			ei.addEmployeeDetails(em);
 			log.getInput("Insert successfully");
 		}	
 			break;
@@ -51,33 +49,35 @@ public class EmployeeTest {
 		log.getInput("\n\t Display employee details \n");
 		log.getInput("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
 		log.getInput("\t select \n");
-		EmployeeImpl ei=new EmployeeImpl();
-		Employee em=new Employee();
-		ei.displayEmployeeDetils(em);
+		EmployeeImpl2 ei=new EmployeeImpl2();
+		List<Employee>list=ei.displayEmployeeDetails();
+		for (Employee emp : list) {
+			log.getInput(emp);
+		}
 		}break;
 		case 3:
 		{
 			log.getInput("\n\t Delete employee details \n");
 			log.getInput("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
-			EmployeeImpl ei=new EmployeeImpl();
+			EmployeeImpl2 ei=new EmployeeImpl2();
 			Employee em=new Employee();
-			log.getInput("Enter the Employee name");
-			em.setEmployeename(s.next());
-			ei.deleteEmployeeDetils(em);
+			log.getInput("Enter the Employee id");
+			em.setEmployeeid(s.nextInt());
+			ei.deleteproductDetails(em);
 						
 		}break;
 		case 4:
 		{
 			log.getInput("\n\t Update employee details \n");
 			log.getInput("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
-			EmployeeImpl ei=new EmployeeImpl();
+			EmployeeImpl2 ei=new EmployeeImpl2();
 			Employee em=new Employee();
-			log.getInput("Enter the Employee name");
-			em.setEmployeename(s.next());
-			log.getInput("Enter the Employee Address");
-			em.setAddress(s.next());
-			ei.updateEmployeeDetils(em);
-		}
+			log.getInput("Enter the Employee id");
+			em.setEmployeeid(s.nextInt());
+			log.getInput("Enter the Employee mobile number");
+			em.setMobileno(s.nextInt());
+			ei.updateproduct(em);
+			}
 		}	log.getInput("Do u want to continue(y/n):press(1/0)");
 		int f=s.nextInt();
 		

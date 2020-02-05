@@ -1,11 +1,12 @@
-package project.test;
+package spring.test;
 
+import java.util.List;
 import java.util.Scanner;
-import project.dao.impl.CustomerCardImpl;
-import project.model.customerCard;
+import spring.dao.impl.CustomerCardImple2;
 import supermarket.logger;
+import project.model.customerCard;
 
-public class CustomerCardTest {
+public class customerCardTest2 {
 	private static final logger log=logger.getInstance();
 	public static void main(String[] args) throws Exception {
 		int flag=1;
@@ -23,7 +24,7 @@ public class CustomerCardTest {
 		case 1:
 		{
 			log.getInput("Insert customer card details");
-		CustomerCardImpl cci=new CustomerCardImpl();
+			CustomerCardImple2 cci=new CustomerCardImple2();
 		customerCard cc=new customerCard();
 		log.getInput("Enter the customer name");
 		cc.setCustomername(s.next());
@@ -31,38 +32,38 @@ public class CustomerCardTest {
 		cc.setContactnumber(s.nextLong());
 		log.getInput("Enter the address");
 		cc.setAddress(s.next());
-		cci.addCustomerCard(cc);
+		cci.addCustomerCardtDetails(cc);
 		}
 		break;
 		case 3:
 		{
-		CustomerCardImpl cci=new CustomerCardImpl();
+			CustomerCardImple2 cci=new CustomerCardImple2();
 		customerCard cc=new customerCard();
-		log.getInput("Enter the customer name");
-		cc.setCustomername(s.next());
-		cci.deleteCustomerCard(cc);
+		log.getInput("Enter the mobile number");
+		cc.setContactnumber(s.nextLong());
+		cci.deleteCustomerCardDetails(cc);
 		}break;
 		case 2:
 		{
-
-			CustomerCardImpl cci=new CustomerCardImpl();
-			customerCard cc=new customerCard();
+			CustomerCardImple2 cci=new CustomerCardImple2();
 			log.getInput("Display customer card details");
-			cci.displayCustomerCard(cc);
+			List<customerCard>list=cci.displayCustomerCardDetails();
+			for (customerCard cc : list) {
+				log.getInput(cc);
+			}
 		
 			
 		}break;
 		case 4:
 		{
-			CustomerCardImpl cci=new CustomerCardImpl();
-			customerCard cc=new customerCard();
+			CustomerCardImple2 cci=new CustomerCardImple2();
+			customerCard cc=new  customerCard();
 			log.getInput("update customer card details");
+			log.getInput("Enter the customer mobile number");
+			cc.setContactnumber(s.nextLong());
 			log.getInput("Enter the customer name");
 			cc.setCustomername(s.next());
-			log.getInput("Enter the customer address");
-			cc.setAddress(s.next());
 			cci.updateCustomerCard(cc);
-			
 		}
 	}	log.getInput("Do u want to continue(y/n):press(1/0)");
 	int f=s.nextInt();
