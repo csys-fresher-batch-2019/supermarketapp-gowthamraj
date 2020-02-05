@@ -30,14 +30,12 @@ public class CustomerCardImpl implements CustomerCardDAO {
 		pst.setLong(2,customercard.getContactnumber());
 		pst.setString(3,customercard.getAddress());
 		pst.executeUpdate();
-		// TODO Auto-generated method stub
 		con.close();
 		pst.close();
 	}
 
 	@Override
 	public void deleteCustomerCard(customerCard customercard) throws Exception {
-		// TODO Auto-generated method stub
 		Connection con=getConnection();
 		String sql="delete from customer_card where customer_name=?";
 		PreparedStatement pst=con.prepareStatement(sql);
@@ -48,8 +46,7 @@ public class CustomerCardImpl implements CustomerCardDAO {
 	}
 
 	@Override
-	public void displayCustomerCard(customerCard customercard) throws Exception, Exception {
-		// TODO Auto-generated method stub
+	public void displayCustomerCard(customerCard customercard) throws Exception {
 		Connection con=getConnection();
 		String sql="select customer_name,mobile_number,address from customer_card";
 		Statement st1 =con.createStatement();
@@ -70,8 +67,6 @@ public class CustomerCardImpl implements CustomerCardDAO {
 
 	@Override
 	public void updateCustomerCard(customerCard customercard) throws Exception {
-		// TODO Auto-generated method stub
-
 		Connection con=getConnection();
 		String sql="update customer_card set address=? where customer_name=?";
 		PreparedStatement pst=con.prepareStatement(sql);

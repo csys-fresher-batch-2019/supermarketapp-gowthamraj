@@ -21,71 +21,62 @@ public class CaseImple implements CaseDAO {
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
-
 		return con;
 	}
 
 	@Override
 	public int employeeCount(Employee employee) throws Exception {
-		Connection con = getConnection();
 		String sql = "select count(*)  as employee_count from employee";
-		Statement st1 = con.createStatement();
-		ResultSet rs = st1.executeQuery(sql);
+		try(Connection con = getConnection();Statement st1 = con.createStatement();ResultSet rs = st1.executeQuery(sql);){
 		while (rs.next()) {
-			int EmployeeCount = rs.getInt("employee_count");
-
-			log.getInput("Total number of employee in the market  =" + EmployeeCount);
+			int employeeCount = rs.getInt("employee_count");
+			log.getInput("Total number of employee in the market  =" + employeeCount);
 		}
-		con.close();
-		st1.close();
-		rs.close();
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 		return 0;
 	}
 	@Override
 	public int todayIncome(LocalDate date) throws Exception {
-		Connection con = getConnection();
 		String sql = "select GET_TOTAL_AMOUNT(?)as total_amount from dual";
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setDate(1, Date.valueOf(date));
-		ResultSet rs = st.executeQuery();
 		int amount = 0;
+		try(Connection con = getConnection();PreparedStatement st = con.prepareStatement(sql);
+				ResultSet rs = st.executeQuery();){
+		st.setDate(1, Date.valueOf(date));
 		while (rs.next()) {
 			amount = rs.getInt("total_amount");
-
 		}
-
-		con.close();
-		st.close();
-
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return amount;
 	}
 
-
-
 	@Override
 	public int totalIncome(OrderItem bills) throws Exception {
-		Connection con = getConnection();
-		String sql = "select sum(total)as daily_income from bills";
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(sql);
+			String sql = "select sum(total)as daily_income from bills";
 		int total=0;
+		try(Connection con = getConnection();Statement st = con.createStatement();ResultSet rs = st.executeQuery(sql);){
 		while (rs.next()) {
 			total = rs.getInt("daily_income");
 		}
-		con.close();
-		st.close();
-		rs.close();
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
 		return total;
 	}
-			@Override
+
+	@Override
 			public List<Product> productPriceBetween(int min, int max) throws Exception {
-				Connection con = getConnection();
-				String sql = "select * from product where price  between ? and ?";
+					String sql = "select * from product where price  between ? and ?";
 				List<Product> list = new ArrayList<Product>();
-				PreparedStatement ps = con.prepareStatement(sql);
+				try(Connection con = getConnection();PreparedStatement ps = con.prepareStatement(sql);ResultSet rs = ps.executeQuery();){
 				ps.setInt(1, min);
 				ps.setInt(2, max);
-				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
 					int id = rs.getInt("product_id");
 					String name = rs.getString("product_name");
@@ -97,21 +88,19 @@ public class CaseImple implements CaseDAO {
 					p.setPrice(cost);
 					list.add(p);
 				}
-
-				con.close();
-				ps.close();
-				rs.close();
-
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+				}				
 				return list;
 			}
 			
 		@Override
 		public List<OrderItem> customerCount(OrderItem bills) throws Exception {
-			Connection con=getConnection();
+			
 			String sql="select count(*) as number_of_customer,ordered_date from bill_order group by ordered_date";
 			List<OrderItem> list = new ArrayList<OrderItem>();
-			Statement st=con.createStatement();
-			ResultSet rs=st.executeQuery(sql);
+			try(Connection con=getConnection();Statement st=con.createStatement();ResultSet rs=st.executeQuery(sql);){
 			while (rs.next())
 			{
 				int customercount=rs.getInt("number_of_customer");
@@ -123,9 +112,10 @@ public class CaseImple implements CaseDAO {
 				b.setBilldate(pa1);
 				list.add(b);
 			}
-			con.close();
-			st.close();
-			rs.close();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 
 			return list;
 		}
@@ -133,6 +123,7 @@ public class CaseImple implements CaseDAO {
 		@Override
 	public List<OrderItem> finalBills(OrderItem bills) throws Exception {
 		return null;
+		
 		}
 
 	}

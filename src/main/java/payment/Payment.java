@@ -3,6 +3,7 @@ package payment;
 public class Payment {
 	
 	private static final Long COMPANY_MOBILE_NO = 6789012340L; //use your registered wallet mobileno
+	
 	public static boolean pay(Long mobileNo , int pin, int amount) {
 		boolean status=true ;
 /*		try {

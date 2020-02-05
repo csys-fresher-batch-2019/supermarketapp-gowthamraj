@@ -2,10 +2,10 @@ package Logger;
 
 
 
-public class logger {
-	public static logger getInstance()
+public class Logger {
+	public static Logger getInstance()
 	{
-		logger log=new logger();
+		Logger log=new Logger();
 		return log;
 	}
 	

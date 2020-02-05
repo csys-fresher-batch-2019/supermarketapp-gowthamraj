@@ -20,83 +20,55 @@ public class LoginImple implements LoginDAO {
 
 		public Login check(Login login) throws Exception, SQLException {
 		String sql = "select user_name,passwords from login where user_name = ? and passwords = ?";
-		Connection con = getConnection();
-		PreparedStatement ps =con.prepareStatement(sql);
+		Login log1 = new Login();
+		try(Connection con = getConnection();PreparedStatement ps =con.prepareStatement(sql);ResultSet rs1 = ps.executeQuery();){
 		ps.setString(1,login.getUsername());
 		ps.setString(2,login.getPassword());
-		ResultSet rs1 = ps.executeQuery();
-		//boolean b = true;
-		
-		Login log1 = new Login();
 		if (rs1.next()) {
-			//b = true;
-			
 			log1.setUsername(rs1.getString("user_name"));
 			log1.setPassword(rs1.getString("passwords"));
-
-		}/* else {
-			b = false;
 		}
-		if (b) {
-			log.getInput("login Success");
-
-		} else {
-			log.getInput("login failure");
-		}*/
-		
-		con.close();
-		ps.close();
-		return log1;
-
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}	return log1;
 	}
 		
 	public boolean isUsernameExists(String username) throws Exception {
-		Connection con = getConnection();
 		boolean exists = false;
 		String Sql1="select user_name from login where user_name=?";
-		PreparedStatement pst=con.prepareStatement(Sql1);
+		try(Connection con = getConnection();PreparedStatement pst=con.prepareStatement(Sql1);ResultSet rs=pst.executeQuery();){
 		pst.setString(1,username);
-		ResultSet rs=pst.executeQuery();
 		if(rs.next())
 		{
 			exists = true;
 		}
-		con.close();
-		pst.close();
-		rs.close();
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 		return exists;
-		
 	}
 
 	@Override
 	public void add(Login login) throws Exception {
 		String sql = "insert into login (user_name,passwords) values(?,?)";
 		log.getInput(sql);
-
-		Connection con = getConnection();
-		PreparedStatement ps = con.prepareStatement(sql);
+		try (Connection con = getConnection();PreparedStatement ps=con.prepareStatement(sql);){
 		ps.setString(1, login.getUsername());
 		ps.setString(2, login.getPassword());
 		ps.executeUpdate();
-		
-		
-		
 		String name=login.getUsername();
 		String Sql1="select user_name from login where user_name=?";
-		PreparedStatement pst=con.prepareStatement(Sql1);
+		try(PreparedStatement pst=con.prepareStatement(Sql1);ResultSet rs=pst.executeQuery();){
 		pst.setString(1,name);
-		ResultSet rs=pst.executeQuery();
 		while(rs.next())
 		{
-			
-		}
-		con.close();
-		ps.close();
-		pst.close();
-		rs.close();
 	}
-
-	
-
-	
+}
+}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

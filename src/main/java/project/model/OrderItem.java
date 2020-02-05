@@ -5,42 +5,40 @@ import java.time.LocalDate;
 public class OrderItem {
 	
 	private int id;
-	private String Customername;
-	
 	private int orderId;
 	
 	private int productId;
 	
 	private int quantity;
-	
-	private int Customerno;
-	private 
-	LocalDate Billdate;
 
+	private String customername;
 	public String getCustomername() {
-		return Customername;
+		return customername;
 	}
 
 	public void setCustomername(String customername) {
-		Customername = customername;
-	}
-
-	
-	public LocalDate getBilldate() {
-		return Billdate;
-	}
-
-	public void setBilldate(LocalDate billdate) {
-		Billdate = billdate;
+		this.customername = customername;
 	}
 
 	public int getCustomerno() {
-		return Customerno;
+		return customerno;
 	}
 
 	public void setCustomerno(int customerno) {
-		Customerno = customerno;
+		this.customerno = customerno;
 	}
+
+	public LocalDate getBilldate() {
+		return billdate;
+	}
+
+	public void setBilldate(LocalDate billdate) {
+		this.billdate = billdate;
+	}
+
+	private int customerno;
+	private	LocalDate billdate;
+
 
 	private String paymentStatus;
 	
@@ -67,8 +65,8 @@ public class OrderItem {
 
 	@Override
 	public String toString() {
-		return "OrderItem [id=" + id + ", Customername=" + Customername + ", orderId=" + orderId + ", productId="
-				+ productId + ", quantity=" + quantity + ", Customerno=" + Customerno + ", Billdate=" + Billdate
+		return "OrderItem [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity
+				+ ", customername=" + customername + ", customerno=" + customerno + ", billdate=" + billdate
 				+ ", paymentStatus=" + paymentStatus + ", price=" + price + ", totalAmount=" + totalAmount + ", status="
 				+ status + "]";
 	}

@@ -25,96 +25,96 @@ public class ProductImple implements ProductDAO {
 	@Override
 	public void addproductDetails(Product product)throws Exception {
 		String sql = "insert into product (product_id,product_name,price) values(pro_id.nextval,?,?)";
+		try (Connection con = getConnection();PreparedStatement ps=con.prepareStatement(sql);){
 		log.getInput(sql);
 
-		Connection con = getConnection();
-		PreparedStatement ps = con.prepareStatement(sql);
 		
 		ps.setString(1,product.getProductname() );
 		ps.setInt(2,product.getPrice());
 		ps.executeUpdate();
-		// TODO Auto-generated method stub
-		con.close();
-		ps.close();
-
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
+	
 	}
 	@Override
 	public void deleteproductDetails(Product product) throws Exception {
 		// TODO Auto-generated method stub
 		String sql="Delete from product where product_id=?";
-		Connection con=getConnection();
-		PreparedStatement ps=con.prepareStatement(sql);
+		try (Connection con = getConnection();PreparedStatement ps=con.prepareStatement(sql);){
+				
+		//Connection con=getConnection();
+		//
 		ps.setInt(1, product.getPid());
 		ps.executeUpdate();
-		con.close();
-		ps.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 
 		
 	}
 	@Override
 	public List<Product> displayproduct() throws Exception {
 		// TODO Auto-generated method stub
-		Connection con = getConnection();
+//		Connection con = getConnection();
 		String sql="select product_id,product_name,price from product";
 		List<Product> list = new ArrayList<Product>();
-		Statement st1 =con.createStatement();
-		ResultSet rs=st1.executeQuery(sql);
+		try (Connection con = getConnection();Statement st1 =con.createStatement();
+				ResultSet rs=st1.executeQuery(sql);) {
 		while(rs.next()!=NULL)
 		{
 			Product p=new Product();
-
 			p.setProductname(rs.getString("product_name"));
 			p.setPrice(rs.getInt("price"));
-			
+
 			//log.getInput("Product_id =" +rs.getInt(1)+"product name = "+name+"Product price = "+cost);
 			p.setPid(rs.getInt("product_id"));
-			
-			
 			list.add(p);
 		}
-		
-		
-		
-		con.close();
-		st1.close();
-		rs.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		return(list);
 		
-	
 	}
 	
 	@Override
 	public void updateproduct(Product product) throws Exception {
 		// TODO Auto-generated method stub
-		Connection con=getConnection();
+	//	Connection con=getConnection();
 		String sql="update product set product_name= ? where price= ? ";
-		PreparedStatement ps=con.prepareStatement(sql);
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+		//PreparedStatement ps=con.prepareStatement(sql);
 		ps.setString(1,product.getProductname());
 		ps.setInt(2,product.getPrice());
 		ps.executeUpdate();
-		con.close();
-		ps.close();
-
 	}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public int getProductPrice(int productId) throws Exception {
-		Connection con=getConnection();
+		//Connection con=getConnection();
 		String sql="select price from product where product_id=? ";
-		PreparedStatement ps=con.prepareStatement(sql);
-		ps.setInt(1,productId );
-		ResultSet rs=ps.executeQuery();
 		int price=0;
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql);ResultSet rs=ps.executeQuery();) {
+		//PreparedStatement ps=con.prepareStatement(sql);
+		ps.setInt(1,productId );
 		while (rs.next())
 		{
 			price=rs.getInt("price");
-			
 		}
-		con.close();
-		ps.close();
-		rs.close();
+		}
+		catch(Exception e) {
+		e.printStackTrace();
+	}
+
 		return(price);
 	}
-	
-	
-
-}
+	}

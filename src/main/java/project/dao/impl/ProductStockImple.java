@@ -23,50 +23,52 @@ public class ProductStockImple implements ProductStockDAO {
 
 	@Override
 	public void addProductStock(ProductStock productstock) throws Exception {
-	Connection con=getConnection();
 	String sql="insert into product_stock (product_no,stock_id,quantity,product_arrival,expery_date)\r\n" + 
 			"values(pro_no.nextval,?,?,?,?)";
-	PreparedStatement ps=con.prepareStatement(sql);
+	try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 	ps.setInt(1,productstock.getStockid());
 	ps.setInt(2, productstock.getQuantity());
 	ps.setDate(3,Date.valueOf(productstock.getProductarrival()));
 	ps.setDate(4,Date.valueOf(productstock.getExperydate()));
 	ps.executeUpdate();
-	con.close();
-	ps.close();
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 	}
 
 	@Override
 	public void deleteProductStock(ProductStock productstock) throws Exception {
-		Connection con=getConnection();
 		String sql="delete from product_stock where product_no=?";
-		PreparedStatement ps=con.prepareStatement(sql);
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 		ps.setInt(1,productstock.getProductno());
 		ps.executeUpdate();
-		// TODO Auto-generated method stub
-		con.close();
-		ps.close();
-	}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		}
+	
 
 	@Override
 	public void updateProductStock(ProductStock productstock) throws Exception {
-		// TODO Auto-generated method stub
-		Connection con=getConnection();
+		
 		String sql="update product_stock set quantity=? where product_no=?";
-		PreparedStatement ps=con.prepareStatement(sql);
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 		ps.setInt(1, productstock.getQuantity());
 		ps.setInt(2, productstock.getProductno());
 		ps.executeUpdate();
-		con.close();
-		ps.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}		
 	}
 		
 	@Override
 	public void displayProductStock(ProductStock productstock) throws Exception {
-		Connection con= getConnection();
+		
 		String sql="select product_no,stock_id,quantity,product_arrival,expery_date from product_stock";
-		Statement st1 =con.createStatement();
-		ResultSet rs=st1.executeQuery(sql);
+		try (Connection con = getConnection();Statement stmt = con.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
 		while(rs.next())
 		{
 			int no=rs.getInt("product_no");
@@ -79,9 +81,11 @@ public class ProductStockImple implements ProductStockDAO {
 			
 			log.getInput("product_no = "+no+"Stock_id = "+id+"Quantity = "+quantity+"product date = "+pa1+"Expery date ="+ex);
 		}
-		con.close();
-		st1.close();
-		rs.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
