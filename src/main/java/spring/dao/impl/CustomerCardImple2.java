@@ -3,12 +3,12 @@ import java.util.List;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spring1.dao.CustomerCardDAO2;
-import supermarket.logger;
+import supermarket.Logger;
 import spring.dao.impl.ProductImple2;
 import project.model.customerCard;
 
 public class CustomerCardImple2 implements CustomerCardDAO2 {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static JdbcTemplate getJdbcTemplate()
 	{
 		BasicDataSource ds=new BasicDataSource();

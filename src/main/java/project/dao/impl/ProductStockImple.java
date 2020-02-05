@@ -10,10 +10,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import project.dao.ProductStockDAO;
 import project.model.ProductStock;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class ProductStockImple implements ProductStockDAO {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");

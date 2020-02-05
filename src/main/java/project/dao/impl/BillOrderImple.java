@@ -10,10 +10,10 @@ import java.util.List;
 import project.dao.BillOrderDAO;
 import project.model.Order;
 import project.model.OrderItem;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class BillOrderImple implements BillOrderDAO {
-	private static final logger log = logger.getInstance();
+	private static final Logger log = Logger.getInstance();
 
 	public static Connection getConnection() throws Exception {
 		Class.forName("oracle.jdbc.driver.OracleDriver");

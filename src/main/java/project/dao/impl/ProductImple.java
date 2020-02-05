@@ -8,12 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import project.dao.ProductDAO;
 import project.model.Product;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class ProductImple implements ProductDAO {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	private static final boolean NULL = false;
 
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
@@ -27,8 +28,6 @@ public class ProductImple implements ProductDAO {
 		String sql = "insert into product (product_id,product_name,price) values(pro_id.nextval,?,?)";
 		try (Connection con = getConnection();PreparedStatement ps=con.prepareStatement(sql);){
 		log.getInput(sql);
-
-		
 		ps.setString(1,product.getProductname() );
 		ps.setInt(2,product.getPrice());
 		ps.executeUpdate();
@@ -36,30 +35,20 @@ public class ProductImple implements ProductDAO {
 	catch(Exception e) {
 		e.printStackTrace();
 	}
-	
 	}
 	@Override
 	public void deleteproductDetails(Product product) throws Exception {
-		// TODO Auto-generated method stub
 		String sql="Delete from product where product_id=?";
 		try (Connection con = getConnection();PreparedStatement ps=con.prepareStatement(sql);){
-				
-		//Connection con=getConnection();
-		//
 		ps.setInt(1, product.getPid());
 		ps.executeUpdate();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-
-		
 	}
 	@Override
 	public List<Product> displayproduct() throws Exception {
-		// TODO Auto-generated method stub
-//		Connection con = getConnection();
 		String sql="select product_id,product_name,price from product";
 		List<Product> list = new ArrayList<Product>();
 		try (Connection con = getConnection();Statement st1 =con.createStatement();
@@ -84,11 +73,8 @@ public class ProductImple implements ProductDAO {
 	
 	@Override
 	public void updateproduct(Product product) throws Exception {
-		// TODO Auto-generated method stub
-	//	Connection con=getConnection();
 		String sql="update product set product_name= ? where price= ? ";
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-		//PreparedStatement ps=con.prepareStatement(sql);
 		ps.setString(1,product.getProductname());
 		ps.setInt(2,product.getPrice());
 		ps.executeUpdate();
@@ -100,11 +86,9 @@ public class ProductImple implements ProductDAO {
 	
 	@Override
 	public int getProductPrice(int productId) throws Exception {
-		//Connection con=getConnection();
 		String sql="select price from product where product_id=? ";
 		int price=0;
 		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql);ResultSet rs=ps.executeQuery();) {
-		//PreparedStatement ps=con.prepareStatement(sql);
 		ps.setInt(1,productId );
 		while (rs.next())
 		{
@@ -114,7 +98,6 @@ public class ProductImple implements ProductDAO {
 		catch(Exception e) {
 		e.printStackTrace();
 	}
-
 		return(price);
 	}
 	}

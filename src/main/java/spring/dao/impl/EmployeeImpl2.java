@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spring1.dao.EmployeeDAO2;
-import supermarket.logger;
+import supermarket.Logger;
 import project.model.Employee;
 public class EmployeeImpl2 implements EmployeeDAO2 {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static JdbcTemplate getJdbcTemplate()
 	{
 		BasicDataSource ds=new BasicDataSource();

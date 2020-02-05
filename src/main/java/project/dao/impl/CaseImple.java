@@ -14,10 +14,10 @@ import project.dao.CaseDAO;
 import project.model.OrderItem;
 import project.model.Employee;
 import project.model.Product;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class CaseImple implements CaseDAO {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");

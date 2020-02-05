@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import project.dao.CustomerCardDAO;
 import project.model.customerCard;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class CustomerCardImpl implements CustomerCardDAO {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static Connection getConnection() throws ClassNotFoundException, SQLException
 	{
 		Class.forName("oracle.jdbc.driver.OracleDriver");

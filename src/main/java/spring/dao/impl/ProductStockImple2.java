@@ -6,11 +6,11 @@ import java.util.List;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spring1.dao.ProductStockDAO2;
-import supermarket.logger;
+import supermarket.Logger;
 import project.model.ProductStock;
 
 public class ProductStockImple2 implements ProductStockDAO2 {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static JdbcTemplate getjdbcTemplate()
 	{
 		BasicDataSource ds=new BasicDataSource();

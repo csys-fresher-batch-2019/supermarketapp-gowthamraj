@@ -2,10 +2,10 @@ package project.test;
 import java.util.Scanner;
 
 
-import supermarket.logger;
+import supermarket.Logger;
 public class payment 
 {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) 
 		{
 		Scanner s=new Scanner(System.in);

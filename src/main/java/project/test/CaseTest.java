@@ -3,13 +3,14 @@ package project.test;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+
 import project.dao.impl.CaseImple;
-import project.model.OrderItem;
 import project.model.Employee;
-import supermarket.logger;
+import project.model.OrderItem;
+import supermarket.Logger;
 
 public class CaseTest {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) throws Exception {
 		int flag = 1;
 		Scanner s = new Scanner(System.in);

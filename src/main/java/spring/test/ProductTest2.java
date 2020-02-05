@@ -3,11 +3,11 @@ package spring.test;
 import java.util.List;
 import java.util.Scanner;
 import spring.dao.impl.ProductImple2;
-import supermarket.logger;
+import supermarket.Logger;
 import project.model.Product;
 
 public class ProductTest2 {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) throws Exception {
 		
 	Scanner s=new Scanner (System.in);	

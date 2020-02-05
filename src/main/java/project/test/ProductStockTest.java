@@ -3,9 +3,9 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import project.dao.impl.ProductStockImple;
 import project.model.ProductStock;
-import supermarket.logger;
+import supermarket.Logger;
 public class ProductStockTest {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) throws Exception 
 	{
 		int flag=1;

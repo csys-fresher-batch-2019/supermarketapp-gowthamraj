@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 import project.dao.impl.ProductImple;
 import project.model.Product;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class ProductTest {	
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) throws Exception 
 	{
 		Scanner s=new Scanner (System.in);

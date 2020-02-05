@@ -3,10 +3,10 @@ package project.test;
 import java.util.Scanner;
 import project.dao.impl.CustomerCardImpl;
 import project.model.customerCard;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class CustomerCardTest {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) throws Exception {
 		int flag=1;
 		Scanner s =new Scanner (System.in);

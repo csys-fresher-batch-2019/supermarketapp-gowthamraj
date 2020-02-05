@@ -7,10 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import project.dao.LoginDAO;
 import project.model.Login;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class LoginImple implements LoginDAO {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");

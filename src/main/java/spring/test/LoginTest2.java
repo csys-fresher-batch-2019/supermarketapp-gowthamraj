@@ -1,12 +1,12 @@
 package spring.test;
 import java.util.Scanner;
 import spring.dao.impl.LoginImple2;
-import supermarket.logger;
+import supermarket.Logger;
 import project.model.Login;
 
 
 public class LoginTest2 {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) {
 		Scanner s=new Scanner(System.in);
 		log.getInput("\t\t Menu");

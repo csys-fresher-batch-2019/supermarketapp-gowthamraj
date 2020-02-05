@@ -3,11 +3,11 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spring1.dao.LoginDAO2;
-import supermarket.logger;
+import supermarket.Logger;
 import project.model.Login;
 
 public class LoginImple2 implements LoginDAO2 {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
    public static JdbcTemplate getJdbcTemplate() {
        BasicDataSource ds = new BasicDataSource();
        ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");

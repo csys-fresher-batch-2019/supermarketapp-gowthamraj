@@ -10,10 +10,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import project.dao.EmployeeDAO;
 import project.model.Employee;
-import supermarket.logger;
+import supermarket.Logger;
 
 public class EmployeeImpl implements EmployeeDAO {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static Connection getConnection() throws ClassNotFoundException, SQLException
 	{
 		Class.forName("oracle.jdbc.driver.OracleDriver");

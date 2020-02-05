@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import spring.dao.impl.ProductStockImple2;
-import supermarket.logger;
+import supermarket.Logger;
 import project.model.ProductStock;
 
 public class ProductStocktest2 {
-	private static final logger log=logger.getInstance();
+	private static final Logger log=Logger.getInstance();
 	public static void main(String[] args) throws Exception {
 		Scanner s =new Scanner(System.in);
 		 int flag=1;
