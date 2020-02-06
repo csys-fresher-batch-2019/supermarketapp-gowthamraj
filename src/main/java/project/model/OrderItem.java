@@ -61,7 +61,7 @@ public class OrderItem {
 
 	private int totalAmount;
 	
-	private String status;
+	private String status = "PENDING";
 
 	@Override
 	public String toString() {

@@ -76,11 +76,13 @@ public class ProductImple implements ProductDAO {
 	public int getProductPrice(int productId) throws DbException {
 		String sql="select price from product where product_id=? ";
 		int price=0;
-		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);ResultSet rs=ps.executeQuery();) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 		ps.setInt(1,productId );
+		try(ResultSet rs=ps.executeQuery();){
 		while (rs.next())
 		{
 			price=rs.getInt("price");
+		}
 		}
 		}
 		catch(Exception e) {

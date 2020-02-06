@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import exception.DbException;
@@ -28,6 +29,7 @@ public class BillOrderImple implements BillOrderDAO {
 		
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 		return orderID;
@@ -36,11 +38,12 @@ public class BillOrderImple implements BillOrderDAO {
 	@Override
 	public void addBillOrder(Order billorder) throws DbException {
 		int orderId = getNextOrderId();
-		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
+		String sql = "Insert into bill_order (p_id,customer_no,total_amount,status)values(?,?,?,?)";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setInt(1, orderId);
 			pst.setInt(2, billorder.getCustomerno());
 			pst.setInt(3, billorder.getTotalAmount());
+			pst.setString(4,billorder.getStatus());
 			pst.executeUpdate();
 			List<OrderItem> items = billorder.getItems();
 			for (OrderItem orderItem : items) {
@@ -56,6 +59,7 @@ public class BillOrderImple implements BillOrderDAO {
 			}
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
 	}
@@ -71,7 +75,6 @@ public class BillOrderImple implements BillOrderDAO {
 		catch(Exception e) {
 			throw new DbException(ErrorConstants.INVALID_UPDATE);
 		}
-
 	}
 
 	@Override
@@ -84,12 +87,12 @@ public class BillOrderImple implements BillOrderDAO {
 	catch(Exception e) {
 		throw new DbException(ErrorConstants.INVALID_DELETE);
 	}
-
-	}
+}
 
 	@Override
 	public void displayBillOrder(Order billorder) throws DbException {
-		String sql = "select * from bill_order";// p_id,product_id,customer_no,quantity,price
+		String sql = "select * from bill_order";
+		//List<Order> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();Statement stmt = con.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
 				while (rs.next()) {
 			int pid = rs.getInt("p_id");
@@ -98,12 +101,12 @@ public class BillOrderImple implements BillOrderDAO {
 			String status = rs.getString("status");
 			Date ds = rs.getDate("ordered_date");
 			LocalDate pa1 = ds.toLocalDate();
-			log.getInput("product id = " + pid + "customer number = " + cusno + "Total = " + total + "Status ="
+			log.getInput("billno= " + pid + "customer number = " + cusno + "Total = " + total + "Status ="
 					+ status + "Ordered Date =" + pa1);
 		}
 		}
 		catch(Exception e) {
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 				}
-	}
+		}
 }

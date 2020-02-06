@@ -3,7 +3,7 @@ package exception;
 public class ErrorConstants {
 	
 	private  ErrorConstants(){
-		//default constructor
+		
 	}
 	
 	public static final String INVALID_CON

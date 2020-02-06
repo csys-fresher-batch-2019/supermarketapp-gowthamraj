@@ -41,6 +41,8 @@ public class billOrdertext {
 					item.setQuantity(s.nextInt());
 					int itemPrice = pi.getProductPrice(item.getProductId());
 					item.setPrice(itemPrice);
+					log.getInput("Enter the Status");
+					item.setStatus(s.next());
 					int itemTotalPrice = item.getQuantity() * item.getPrice();
 					item.setTotalAmount(itemTotalPrice);
 					totalBillAmount = totalBillAmount + itemTotalPrice;

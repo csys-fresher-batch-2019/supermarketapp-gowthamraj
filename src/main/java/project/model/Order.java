@@ -9,7 +9,7 @@ public class Order {
 	private int orderId;
 	private int customerno;
 	private int totalAmount;
-	private String status;
+	private String status="pending";
 	 private LocalDateTime orderedDate;
 	 
 	 private List<OrderItem> items = new ArrayList<>();

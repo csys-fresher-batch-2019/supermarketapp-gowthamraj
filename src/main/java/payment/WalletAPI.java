@@ -1,6 +1,6 @@
 package payment;
 
-import citipe.servicelayer.UserService;
+//import citipe.servicelayer.UserService;
 
 public class WalletAPI {
 
@@ -11,8 +11,8 @@ public class WalletAPI {
 		boolean status = false;
 		
 		 try {
-		 UserService userService = new UserService(); status =
-		 userService.walletTransfer(mobileNo, COMPANY_MOBILE_NO, pin, amount);
+		// UserService userService = new UserService(); status =
+		 //userService.walletTransfer(mobileNo, COMPANY_MOBILE_NO, pin, amount);
 		 System.out.println(status); }
 		 catch (Exception e) 
 		 {
