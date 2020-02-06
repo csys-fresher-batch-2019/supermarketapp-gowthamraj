@@ -23,34 +23,36 @@ public class CustomerCardImpl implements CustomerCardDAO {
 	
 	@Override
 	public void addCustomerCard(customerCard customercard) throws Exception {
-		Connection con=getConnection();
+		
 		String sql="insert into customer_card (customer_name,mobile_number,address) values(?,?,?)";
-		PreparedStatement pst=con.prepareStatement(sql);
+		try(Connection con=getConnection();PreparedStatement pst=con.prepareStatement(sql);){
 		pst.setString(1,customercard.getCustomername());
 		pst.setLong(2,customercard.getContactnumber());
 		pst.setString(3,customercard.getAddress());
 		pst.executeUpdate();
-		con.close();
-		pst.close();
-	}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+}
 
 	@Override
 	public void deleteCustomerCard(customerCard customercard) throws Exception {
-		Connection con=getConnection();
+	
 		String sql="delete from customer_card where customer_name=?";
-		PreparedStatement pst=con.prepareStatement(sql);
+		try(	Connection con=getConnection();PreparedStatement pst=con.prepareStatement(sql);){
 		pst.setString(1,customercard.getCustomername());
 		pst.executeUpdate();
-		con.close();
-		pst.close();
 	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}	}
 
 	@Override
 	public void displayCustomerCard(customerCard customercard) throws Exception {
-		Connection con=getConnection();
+		
 		String sql="select customer_name,mobile_number,address from customer_card";
-		Statement st1 =con.createStatement();
-		ResultSet rs=st1.executeQuery(sql);
+		try(Connection con=getConnection();Statement st1 =con.createStatement();ResultSet rs=st1.executeQuery(sql);){
 		while(rs.next())
 		{
 			
@@ -60,21 +62,23 @@ public class CustomerCardImpl implements CustomerCardDAO {
 			
 			log.getInput("customer name = "+name+"contact = "+contact+"Address ="+address);
 		}
-		con.close();
-		st1.close();
-		rs.close();
+	}
+	catch(Exception e) {
+		e.printStackTrace();
+	}
 	}
 
 	@Override
 	public void updateCustomerCard(customerCard customercard) throws Exception {
-		Connection con=getConnection();
 		String sql="update customer_card set address=? where customer_name=?";
-		PreparedStatement pst=con.prepareStatement(sql);
+		try(Connection con=getConnection();PreparedStatement pst=con.prepareStatement(sql);){
 		pst.setString(1,customercard.getAddress());
 		pst.setString(2,customercard.getCustomername());
 		pst.executeUpdate();
-		con.close();
-		pst.close();
-	}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+}
 
 }

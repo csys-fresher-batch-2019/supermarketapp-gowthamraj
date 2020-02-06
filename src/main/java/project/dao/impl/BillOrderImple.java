@@ -49,13 +49,14 @@ public class BillOrderImple implements BillOrderDAO {
 			List<OrderItem> items = billorder.getItems();
 			for (OrderItem orderItem : items) {
 				String sql1 = "insert into bill_items (bill_item_id,bill_no,product_id,quantity,price,total_amount) values (bill_item_id_seq.nextval,?,?,?,?,?)";
-				PreparedStatement pst1 = con.prepareStatement(sql1);
+				try(PreparedStatement pst1 = con.prepareStatement(sql1);){
 				pst1.setInt(1, orderId);
 				pst1.setInt(2, orderItem.getProductId());
 				pst1.setInt(3, orderItem.getQuantity());
 				pst1.setInt(4, orderItem.getPrice());
 				pst1.setInt(5, orderItem.getTotalAmount());
 				pst1.executeUpdate();
+			}
 			}
 
 		}
