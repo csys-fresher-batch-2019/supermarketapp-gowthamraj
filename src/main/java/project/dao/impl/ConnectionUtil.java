@@ -9,6 +9,9 @@ import exception.ErrorConstants;
 
 public class ConnectionUtil {
 
+	private ConnectionUtil() {
+		//default constructor
+	}
 	public static Connection getConnection() throws DbException {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");

@@ -16,6 +16,7 @@ import supermarket.Logger;
 
 public class BillOrderImple implements BillOrderDAO {
 	private static final Logger log = Logger.getInstance();
+	
 
 		public int getNextOrderId() throws DbException {
 		int orderID = 0;
