@@ -19,9 +19,9 @@ public class CaseTest {
 			log.getInput("\t*-*_* \n");
 			log.getInput("1.Employee Count");
 			//log.getInput("2.Product Price Between");
-			log.getInput("2.customer card holder purchase");
-			log.getInput("3.Today income");
-			log.getInput("4.Total Income");
+			//log.getInput("2.customer card holder purchase");
+			log.getInput("2.Today income");
+			log.getInput("3.Total Income");
 			log.getInput("Enter u r choice");
 			int choice = s.nextInt();
 			switch (choice) {
@@ -45,7 +45,7 @@ public class CaseTest {
 					log.getInput(product);
 				}
 			}
-				break;*/
+				break;
 			case 2: {
 				log.getInput("\tcustomer card holder purchase\"");
 				CaseImple ci = new CaseImple();
@@ -56,8 +56,8 @@ public class CaseTest {
 				}
 
 			}
-				break;
-			case 3: {
+				break;*/
+			case 2: {
 				CaseImple ci = new CaseImple();
 				log.getInput("Enter the date");
 				String date = s.next();
@@ -67,7 +67,7 @@ public class CaseTest {
 
 			}
 				break;
-			case 4: {
+			case 3: {
 				log.getInput("Total Income ");
 				CaseImple ci = new CaseImple();
 				OrderItem b = new OrderItem();

@@ -42,7 +42,7 @@ public void add(Login l) {
 				return ll;
 			});
 		} catch (DataAccessException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 
 		return result;

@@ -10,7 +10,6 @@ import supermarket.Logger;
 import project.model.OrderItem;
 import project.model.CustomerBill;
 import project.model.Employee;
-import project.model.Product;
 
 public class CaseImple2 implements caseDAO2 {
 	private static final Logger log=Logger.getInstance();
@@ -70,10 +69,7 @@ public class CaseImple2 implements caseDAO2 {
 		log.getInput(row);
 		return row;
 	}
-	@Override
-	public List<Product> productPriceBetween(int min, int max) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
 
 }

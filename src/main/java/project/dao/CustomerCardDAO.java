@@ -1,13 +1,13 @@
 package project.dao;
 
 import exception.DbException;
-import project.model.customerCard;
+import project.model.CustomerCard;
 
 public interface CustomerCardDAO
 {
-public void addCustomerCard(customerCard customercard) throws DbException;
-public void deleteCustomerCard(customerCard customercard)throws DbException;
-public void displayCustomerCard(customerCard customercard)throws DbException;
-public void updateCustomerCard(customerCard customercard)throws DbException;
+public void addCustomerCard(CustomerCard customercard) throws DbException;
+public void deleteCustomerCard(CustomerCard customercard)throws DbException;
+public void displayCustomerCard(CustomerCard customercard)throws DbException;
+public void updateCustomerCard(CustomerCard customercard)throws DbException;
 
 }

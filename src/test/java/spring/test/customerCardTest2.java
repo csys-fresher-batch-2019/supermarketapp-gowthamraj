@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 import spring.dao.impl.CustomerCardImple2;
 import supermarket.Logger;
-import project.model.customerCard;
+import project.model.CustomerCard;
 
 public class customerCardTest2 {
 	private static final Logger log=Logger.getInstance();
@@ -25,7 +25,7 @@ public class customerCardTest2 {
 		{
 			log.getInput("Insert customer card details");
 			CustomerCardImple2 cci=new CustomerCardImple2();
-		customerCard cc=new customerCard();
+		CustomerCard cc=new CustomerCard();
 		log.getInput("Enter the customer name");
 		cc.setCustomername(s.next());
 		log.getInput("Enter the Customer number");
@@ -38,7 +38,7 @@ public class customerCardTest2 {
 		case 3:
 		{
 			CustomerCardImple2 cci=new CustomerCardImple2();
-		customerCard cc=new customerCard();
+		CustomerCard cc=new CustomerCard();
 		log.getInput("Enter the mobile number");
 		cc.setContactnumber(s.nextLong());
 		cci.deleteCustomerCardDetails(cc);
@@ -47,8 +47,8 @@ public class customerCardTest2 {
 		{
 			CustomerCardImple2 cci=new CustomerCardImple2();
 			log.getInput("Display customer card details");
-			List<customerCard>list=cci.displayCustomerCardDetails();
-			for (customerCard cc : list) {
+			List<CustomerCard>list=cci.displayCustomerCardDetails();
+			for (CustomerCard cc : list) {
 				log.getInput(cc);
 			}
 		
@@ -57,7 +57,7 @@ public class customerCardTest2 {
 		case 4:
 		{
 			CustomerCardImple2 cci=new CustomerCardImple2();
-			customerCard cc=new  customerCard();
+			CustomerCard cc=new  CustomerCard();
 			log.getInput("update customer card details");
 			log.getInput("Enter the customer mobile number");
 			cc.setContactnumber(s.nextLong());

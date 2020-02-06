@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import exception.DbException;
 import exception.ErrorConstants;
 import project.dao.ProductDAO;
@@ -44,7 +43,7 @@ public class ProductImple implements ProductDAO {
 	@Override
 	public List<Product> displayproduct() throws DbException {
 		String sql="select product_id,product_name,price from product";
-		List<Product> list = new ArrayList<Product>();
+		List<Product> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();Statement st1 =con.createStatement();
 				ResultSet rs=st1.executeQuery(sql);) {
 		while(rs.next()!=NULL)
@@ -52,8 +51,6 @@ public class ProductImple implements ProductDAO {
 			Product p=new Product();
 			p.setProductname(rs.getString("product_name"));
 			p.setPrice(rs.getInt("price"));
-
-			//log.getInput("Product_id =" +rs.getInt(1)+"product name = "+name+"Product price = "+cost);
 			p.setPid(rs.getInt("product_id"));
 			list.add(p);
 		}

@@ -7,5 +7,4 @@ public interface LoginDAO {
 	
 	void add(Login login) throws DbException;
 	public Login check(Login login) throws DbException;
-
 }

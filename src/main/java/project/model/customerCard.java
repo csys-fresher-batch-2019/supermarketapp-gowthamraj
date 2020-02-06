@@ -1,6 +1,6 @@
 package project.model;
 
-public class customerCard {
+public class CustomerCard {
 	private String customername;
 	private long contactnumber;
 	private String address;

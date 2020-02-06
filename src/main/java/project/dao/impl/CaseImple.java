@@ -70,7 +70,7 @@ public class CaseImple implements CaseDAO {
 	@Override
 			public List<Product> productPriceBetween(int min, int max) throws DbException {
 					String sql = "select * from product where price  between ? and ?";
-				List<Product> list = new ArrayList<Product>();
+				List<Product> list = new ArrayList<>();
 				try(Connection con = ConnectionUtil.getConnection();PreparedStatement ps = con.prepareStatement(sql);ResultSet rs = ps.executeQuery();){
 				ps.setInt(1, min);
 				ps.setInt(2, max);
@@ -96,7 +96,7 @@ public class CaseImple implements CaseDAO {
 		public List<OrderItem> customerCount(OrderItem bills) throws DbException {
 			
 			String sql="select count(*) as number_of_customer,ordered_date from bill_order group by ordered_date";
-			List<OrderItem> list = new ArrayList<OrderItem>();
+			List<OrderItem> list = new ArrayList<>();
 			try(Connection con=ConnectionUtil.getConnection();Statement st=con.createStatement();ResultSet rs=st.executeQuery(sql);){
 			while (rs.next())
 			{
@@ -116,12 +116,5 @@ public class CaseImple implements CaseDAO {
 
 			return list;
 		}
-
-		@Override
-	public List<OrderItem> finalBills(OrderItem bills) throws DbException {
-		return null;
-		
-		}
-
 	}
 

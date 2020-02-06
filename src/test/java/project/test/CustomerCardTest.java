@@ -2,7 +2,7 @@ package project.test;
 
 import java.util.Scanner;
 import project.dao.impl.CustomerCardImpl;
-import project.model.customerCard;
+import project.model.CustomerCard;
 import supermarket.Logger;
 
 public class CustomerCardTest {
@@ -24,7 +24,7 @@ public class CustomerCardTest {
 		{
 			log.getInput("Insert customer card details");
 		CustomerCardImpl cci=new CustomerCardImpl();
-		customerCard cc=new customerCard();
+		CustomerCard cc=new CustomerCard();
 		log.getInput("Enter the customer name");
 		cc.setCustomername(s.next());
 		log.getInput("Enter the Customer number");
@@ -37,7 +37,7 @@ public class CustomerCardTest {
 		case 3:
 		{
 		CustomerCardImpl cci=new CustomerCardImpl();
-		customerCard cc=new customerCard();
+		CustomerCard cc=new CustomerCard();
 		log.getInput("Enter the customer name");
 		cc.setCustomername(s.next());
 		cci.deleteCustomerCard(cc);
@@ -46,7 +46,7 @@ public class CustomerCardTest {
 		{
 
 			CustomerCardImpl cci=new CustomerCardImpl();
-			customerCard cc=new customerCard();
+			CustomerCard cc=new CustomerCard();
 			log.getInput("Display customer card details");
 			cci.displayCustomerCard(cc);
 		
@@ -55,7 +55,7 @@ public class CustomerCardTest {
 		case 4:
 		{
 			CustomerCardImpl cci=new CustomerCardImpl();
-			customerCard cc=new customerCard();
+			CustomerCard cc=new CustomerCard();
 			log.getInput("update customer card details");
 			log.getInput("Enter the customer name");
 			cc.setCustomername(s.next());

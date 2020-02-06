@@ -10,9 +10,9 @@ import project.model.Product;
 
 public interface CaseDAO {
 	public int employeeCount(Employee employee) throws DbException;
-	public  List<OrderItem> finalBills(OrderItem bills)throws DbException;
 	public int totalIncome(OrderItem bills)throws DbException;
 	public int todayIncome(LocalDate date)throws DbException;
 	public List<Product> productPriceBetween(int min, int max) throws DbException;
 	public List<OrderItem> customerCount(OrderItem bills) throws DbException;
+	
 }

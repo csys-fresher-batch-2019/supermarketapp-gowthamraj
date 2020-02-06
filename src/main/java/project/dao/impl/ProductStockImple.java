@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
-
 import exception.DbException;
 import exception.ErrorConstants;
 import project.dao.ProductStockDAO;
@@ -80,7 +79,5 @@ public class ProductStockImple implements ProductStockDAO {
 		catch(Exception e) {
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
-
 	}
-
 }
