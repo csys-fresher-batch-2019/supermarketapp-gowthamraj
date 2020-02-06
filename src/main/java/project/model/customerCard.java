@@ -1,20 +1,20 @@
 package project.model;
 
 public class CustomerCard {
-	private String customername;
-	private long contactnumber;
+	private String customerName;
+	private long contactNumber;
 	private String address;
 	public String getCustomername() {
-		return customername;
+		return customerName;
 	}
 	public void setCustomername(String customername) {
-		this.customername = customername;
+		this.customerName = customername;
 	}
 	public long getContactnumber() {
-		return contactnumber;
+		return contactNumber;
 	}
 	public void setContactnumber(long contactnumber) {
-		this.contactnumber = contactnumber;
+		this.contactNumber = contactnumber;
 	}
 	public String getAddress() {
 		return address;
@@ -24,7 +24,7 @@ public class CustomerCard {
 	}
 	@Override
 	public String toString() {
-		return "customerCard [customername=" + customername + ", contactnumber=" + contactnumber + ", address=" + address
+		return "customerCard [customername=" + customerName + ", contactnumber=" + contactNumber + ", address=" + address
 				+ "]";
 	}
 

@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import spring1.dao.caseDAO2;
 import supermarket.Logger;
 import project.model.OrderItem;
-import project.model.CustomerBill;
 import project.model.Employee;
 
 public class CaseImple2 implements caseDAO2 {
@@ -26,10 +25,7 @@ public class CaseImple2 implements caseDAO2 {
 		return jdbctemplate;
 	}
 
-	@Override
-	public List<CustomerBill> finalBills(OrderItem bills) throws Exception {
-		return null;
-		}
+	
 	
 	@Override
 	public int todayIncome(LocalDate date) throws Exception {
@@ -69,7 +65,4 @@ public class CaseImple2 implements caseDAO2 {
 		log.getInput(row);
 		return row;
 	}
-
-	
-
 }
