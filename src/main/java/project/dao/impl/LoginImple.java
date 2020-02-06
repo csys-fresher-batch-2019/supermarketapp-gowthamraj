@@ -1,27 +1,21 @@
 package project.dao.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import exception.DbException;
+import exception.ErrorConstants;
 import project.dao.LoginDAO;
 import project.model.Login;
 import supermarket.Logger;
 
 public class LoginImple implements LoginDAO {
 	private static final Logger log=Logger.getInstance();
-	public static Connection getConnection() throws ClassNotFoundException, SQLException {
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
-		log.getInput("connection");
-		return con;
-	}
 
-		public Login check(Login login) throws Exception, SQLException {
+		public Login check(Login login) throws DbException {
 		String sql = "select user_name,passwords from login where user_name = ? and passwords = ?";
 		Login log1 = new Login();
-		try(Connection con = getConnection();PreparedStatement ps =con.prepareStatement(sql);ResultSet rs1 = ps.executeQuery();){
+		try(Connection con = ConnectionUtil.getConnection();PreparedStatement ps =con.prepareStatement(sql);ResultSet rs1 = ps.executeQuery();){
 		ps.setString(1,login.getUsername());
 		ps.setString(2,login.getPassword());
 		if (rs1.next()) {
@@ -30,14 +24,14 @@ public class LoginImple implements LoginDAO {
 		}
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}	return log1;
 	}
 		
-	public boolean isUsernameExists(String username) throws Exception {
+	public boolean isUsernameExists(String username) throws DbException {
 		boolean exists = false;
 		String Sql1="select user_name from login where user_name=?";
-		try(Connection con = getConnection();PreparedStatement pst=con.prepareStatement(Sql1);ResultSet rs=pst.executeQuery();){
+		try(Connection con = ConnectionUtil.getConnection();PreparedStatement pst=con.prepareStatement(Sql1);ResultSet rs=pst.executeQuery();){
 		pst.setString(1,username);
 		if(rs.next())
 		{
@@ -45,16 +39,16 @@ public class LoginImple implements LoginDAO {
 		}
 	}
 	catch(Exception e) {
-		e.printStackTrace();
+		throw new DbException(ErrorConstants.INVALID_SELECT);
 	}
 		return exists;
 	}
 
 	@Override
-	public void add(Login login) throws Exception {
+	public void add(Login login) throws DbException {
 		String sql = "insert into login (user_name,passwords) values(?,?)";
 		log.getInput(sql);
-		try (Connection con = getConnection();PreparedStatement ps=con.prepareStatement(sql);){
+		try (Connection con = ConnectionUtil.getConnection();PreparedStatement ps=con.prepareStatement(sql);){
 		ps.setString(1, login.getUsername());
 		ps.setString(2, login.getPassword());
 		ps.executeUpdate();
@@ -68,7 +62,7 @@ public class LoginImple implements LoginDAO {
 }
 }
 		catch(Exception e) {
-			e.printStackTrace();
+			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
 	}
 }

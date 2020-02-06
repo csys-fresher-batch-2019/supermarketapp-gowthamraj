@@ -1,11 +1,12 @@
 package project.dao;
 
+import exception.DbException;
 import project.model.Employee;
 
 public interface EmployeeDAO {
-	void addEmployeeDetils(Employee employee) throws Exception;
-	void displayEmployeeDetils(Employee employee) throws Exception;
-	void deleteEmployeeDetils(Employee employee) throws Exception;
-	void updateEmployeeDetils(Employee employee) throws Exception;
+	void addEmployeeDetils(Employee employee) throws DbException;
+	void displayEmployeeDetils(Employee employee) throws DbException;
+	void deleteEmployeeDetils(Employee employee) throws DbException;
+	void updateEmployeeDetils(Employee employee) throws DbException;
 
 }

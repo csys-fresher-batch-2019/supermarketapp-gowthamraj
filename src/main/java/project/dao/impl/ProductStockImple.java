@@ -2,30 +2,25 @@ package project.dao.impl;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+
+import exception.DbException;
+import exception.ErrorConstants;
 import project.dao.ProductStockDAO;
 import project.model.ProductStock;
 import supermarket.Logger;
 
 public class ProductStockImple implements ProductStockDAO {
 	private static final Logger log=Logger.getInstance();
-	public static Connection getConnection() throws ClassNotFoundException, SQLException {
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
-		log.getInput("connection");
-		return con;
-	}
-
+	
 	@Override
-	public void addProductStock(ProductStock productstock) throws Exception {
+	public void addProductStock(ProductStock productstock) throws DbException {
 	String sql="insert into product_stock (product_no,stock_id,quantity,product_arrival,expery_date)\r\n" + 
 			"values(pro_no.nextval,?,?,?,?)";
-	try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+	try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 	ps.setInt(1,productstock.getStockid());
 	ps.setInt(2, productstock.getQuantity());
 	ps.setDate(3,Date.valueOf(productstock.getProductarrival()));
@@ -33,42 +28,42 @@ public class ProductStockImple implements ProductStockDAO {
 	ps.executeUpdate();
 	}
 	catch(Exception e) {
-		e.printStackTrace();
+		throw new DbException(ErrorConstants.INVALID_ADD);
 	}
 	}
 
 	@Override
-	public void deleteProductStock(ProductStock productstock) throws Exception {
+	public void deleteProductStock(ProductStock productstock) throws DbException {
 		String sql="delete from product_stock where product_no=?";
-		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 		ps.setInt(1,productstock.getProductno());
 		ps.executeUpdate();
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			throw new DbException(ErrorConstants.INVALID_DELETE);
 		}
 		}
 	
 
 	@Override
-	public void updateProductStock(ProductStock productstock) throws Exception {
+	public void updateProductStock(ProductStock productstock) throws DbException {
 		
 		String sql="update product_stock set quantity=? where product_no=?";
-		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 		ps.setInt(1, productstock.getQuantity());
 		ps.setInt(2, productstock.getProductno());
 		ps.executeUpdate();
 		}
 		catch(Exception e) {
-			e.printStackTrace();
-		}		
+			throw new DbException(ErrorConstants.INVALID_UPDATE);		
+			}		
 	}
 		
 	@Override
-	public void displayProductStock(ProductStock productstock) throws Exception {
+	public void displayProductStock(ProductStock productstock) throws DbException {
 		
 		String sql="select product_no,stock_id,quantity,product_arrival,expery_date from product_stock";
-		try (Connection con = getConnection();Statement stmt = con.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
+		try (Connection con = ConnectionUtil.getConnection();Statement stmt = con.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
 		while(rs.next())
 		{
 			int no=rs.getInt("product_no");
@@ -83,7 +78,7 @@ public class ProductStockImple implements ProductStockDAO {
 		}
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 
 	}

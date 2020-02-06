@@ -1,11 +1,12 @@
 package project.dao;
 
+import exception.DbException;
 import project.model.Order;
 
 public interface BillOrderDAO {
-	void addBillOrder(Order billorder)throws Exception;
-	void displayBillOrder(Order billorder)throws Exception;
-	void updateBillOrder(Order billorder)throws Exception;
-	void deleteBillOrder(Order billorder)throws Exception;
+	void addBillOrder(Order billorder)throws DbException;
+	void displayBillOrder(Order billorder)throws DbException;
+	void updateBillOrder(Order billorder)throws DbException;
+	void deleteBillOrder(Order billorder)throws DbException;
 
 }

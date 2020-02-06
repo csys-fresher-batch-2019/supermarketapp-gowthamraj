@@ -2,13 +2,14 @@ package project.dao;
 
 import java.util.List;
 
+import exception.DbException;
 import project.model.Product;
 
 public interface ProductDAO {
 	
-	void addproductDetails(Product product) throws Exception;
-	void deleteproductDetails(Product product) throws Exception;
-	List<Product> displayproduct()throws Exception;
-	void updateproduct(Product product) throws Exception;
-	int getProductPrice(int productId) throws Exception;
+	void addproductDetails(Product product) throws DbException;
+	void deleteproductDetails(Product product) throws DbException;
+	List<Product> displayproduct()throws DbException;
+	void updateproduct(Product product) throws DbException;
+	int getProductPrice(int productId) throws DbException;
 }
