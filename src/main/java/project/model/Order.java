@@ -12,7 +12,7 @@ public class Order {
 	private String status;
 	 private LocalDateTime orderedDate;
 	 
-	 private List<OrderItem> items = new ArrayList<OrderItem>();
+	 private List<OrderItem> items = new ArrayList<>();
 	 
 	 public void addItem(OrderItem item) {
 		 items.add(item);

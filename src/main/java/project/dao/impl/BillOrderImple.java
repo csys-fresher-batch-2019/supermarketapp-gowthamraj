@@ -53,12 +53,10 @@ public class BillOrderImple implements BillOrderDAO {
 				pst1.executeUpdate();
 			}
 			}
-
 		}
 		catch(Exception e) {
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
-
 	}
 
 	@Override
