@@ -18,7 +18,7 @@ public class ProductTest {
 		do
 		{
 		
-	    log.getInput("Menu");
+	    log.getInput("\tMenu");
 	    log.getInput("1.Insert product");
 	    log.getInput("2.Delete product");
 	    log.getInput("3.Display product");

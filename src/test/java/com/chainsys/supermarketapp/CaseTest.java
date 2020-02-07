@@ -22,6 +22,7 @@ public class CaseTest {
 			//log.getInput("2.customer card holder purchase");
 			log.getInput("2.Today income");
 			log.getInput("3.Total Income");
+			log.getInput("5.Number of customer purchase by date");
 			log.getInput("Enter u r choice");
 			int choice = s.nextInt();
 			switch (choice) {

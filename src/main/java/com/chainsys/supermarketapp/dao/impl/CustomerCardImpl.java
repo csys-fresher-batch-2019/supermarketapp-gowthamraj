@@ -3,6 +3,7 @@ package com.chainsys.supermarketapp.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.chainsys.supermarketapp.dao.CustomerCardDAO;
@@ -54,7 +55,7 @@ public class CustomerCardImpl implements CustomerCardDAO {
 			long contact=rs.getLong("mobile_number");
 			String address=rs.getString("address");
 			
-			log.getInput("customer name = "+name+"contact = "+contact+"Address ="+address);
+			log.getInput("customer name = "+name+"\t contact = "+contact+"\t Address ="+address);
 		}
 	}
 	catch(Exception e) {
@@ -70,7 +71,7 @@ public class CustomerCardImpl implements CustomerCardDAO {
 		pst.setString(2,customercard.getCustomername());
 		pst.executeUpdate();
 		}
-		catch(Exception e) {
+		catch(SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_UPDATE);
 		}
 }

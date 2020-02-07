@@ -1,8 +1,10 @@
 package com.chainsys.supermarketapp.dao.impl;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
@@ -27,7 +29,7 @@ public class BillOrderImple implements BillOrderDAO {
 		}
 		
 		}
-		catch(Exception e) {
+		catch(SQLException e) {
 			
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
@@ -37,12 +39,12 @@ public class BillOrderImple implements BillOrderDAO {
 	@Override
 	public void addBillOrder(Order billorder) throws DbException {
 		int orderId = getNextOrderId();
-		String sql = "Insert into bill_order (p_id,customer_no,total_amount,status)values(?,?,?,?)";
+		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setInt(1, orderId);
 			pst.setInt(2, billorder.getCustomerno());
 			pst.setInt(3, billorder.getTotalAmount());
-			pst.setString(4,billorder.getStatus());
+			//pst.setString(4,billorder.getStatus());
 			pst.executeUpdate();
 			List<OrderItem> items = billorder.getItems();
 			for (OrderItem orderItem : items) {
@@ -57,7 +59,8 @@ public class BillOrderImple implements BillOrderDAO {
 			}
 			}
 		}
-		catch(Exception e) {
+		catch(SQLException e) {
+			
 			
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
@@ -71,19 +74,20 @@ public class BillOrderImple implements BillOrderDAO {
 		pst.setFloat(1, billorder.getTotalAmount());
 		pst.executeUpdate();
 		}
-		catch(Exception e) {
+		catch(SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_UPDATE);
 		}
 	}
 
 	@Override
 	public void deleteBillOrder(Order billorder) throws DbException {
-		String sql = "delete from bill_order where Customer_no=?";
-		try (Connection con =ConnectionUtil. getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
-		pst.setInt(1, billorder.getCustomerno());
-		pst.executeUpdate();
+		try (Connection con =ConnectionUtil. getConnection(); 	CallableStatement stmt=con.prepareCall("{call cancel_order(?)}");) {
+	
+			stmt.setInt(1, billorder.getOrderId());
+		stmt.executeUpdate();
 	}
-	catch(Exception e) {
+	catch(SQLException e) {
+		
 		throw new DbException(ErrorConstants.INVALID_DELETE);
 	}
 }
@@ -103,7 +107,7 @@ public class BillOrderImple implements BillOrderDAO {
 					+ status + "Ordered Date =" + pa1);
 		}
 		}
-		catch(Exception e) {
+		catch(SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 				}
 		}

@@ -3,6 +3,7 @@ package com.chainsys.supermarketapp.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,8 @@ public class ProductImple implements ProductDAO {
 		ps.setInt(2,product.getPrice());
 		ps.executeUpdate();
 	}
-	catch(Exception e) {
+	catch(SQLException e) {
+		
 		throw new DbException(ErrorConstants.INVALID_ADD);
 	}
 	}
@@ -37,7 +39,8 @@ public class ProductImple implements ProductDAO {
 		ps.setInt(1, product.getPid());
 		ps.executeUpdate();
 		}
-		catch(Exception e) {
+		catch(SQLException e) {
+
 			throw new DbException(ErrorConstants.INVALID_DELETE);
 		}
 	}
@@ -62,10 +65,10 @@ public class ProductImple implements ProductDAO {
 	}	
 	@Override
 	public void updateproduct(Product product) throws DbException {
-		String sql="update product set product_name= ? where price= ? ";
+		String sql="update product set price= ? where product_name= ?  ";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
-		ps.setString(1,product.getProductname());
-		ps.setInt(2,product.getPrice());
+		ps.setString(2,product.getProductname());
+		ps.setInt(1,product.getPrice());
 		ps.executeUpdate();
 	}
 		catch(Exception e) {

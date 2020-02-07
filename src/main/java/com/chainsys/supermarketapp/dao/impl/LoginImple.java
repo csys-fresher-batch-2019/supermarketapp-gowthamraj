@@ -18,14 +18,17 @@ public class LoginImple implements LoginDAO {
 		Login log1 = new Login();
 		try (Connection con = ConnectionUtil.getConnection();
 				PreparedStatement ps = con.prepareStatement(sql);
-				ResultSet rs1 = ps.executeQuery();) {
+				) {
 			ps.setString(1, login.getUsername());
 			ps.setString(2, login.getPassword());
+			try(ResultSet rs1 = ps.executeQuery();){
 			if (rs1.next()) {
 				log1.setUsername(rs1.getString("user_name"));
 				log1.setPassword(rs1.getString("passwords"));
 			}
+			}
 		} catch (Exception e) {
+			
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 		return log1;
@@ -36,12 +39,15 @@ public class LoginImple implements LoginDAO {
 		String sql1 = "select user_name from login where user_name=?";
 		try (Connection con = ConnectionUtil.getConnection();
 				PreparedStatement pst = con.prepareStatement(sql1);
-				ResultSet rs = pst.executeQuery();) {
+				) {
 			pst.setString(1, username);
+			try(ResultSet rs = pst.executeQuery();){
 			if (rs.next()) {
 				exists = true;
 			}
+			}
 		} catch (Exception e) {
+			
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 		return exists;
@@ -54,8 +60,10 @@ public class LoginImple implements LoginDAO {
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 			ps.setString(1, login.getUsername());
 			ps.setString(2, login.getPassword());
-			ps.executeUpdate();
+			int rows = ps.executeUpdate();
+			log.debug(rows);
 		} catch (Exception e) {
+			
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
 	}

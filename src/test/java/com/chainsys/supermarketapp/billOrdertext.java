@@ -18,7 +18,7 @@ public class billOrdertext {
 		do {
 			log.getInput("\t Menu");
 			log.getInput("1.Insert");
-			log.getInput("2.Delete");
+			log.getInput("2.cancel");
 			log.getInput("3.Update");
 			log.getInput("4.Display");
 			log.getInput("Enter u r choice");
@@ -42,8 +42,8 @@ public class billOrdertext {
 					item.setQuantity(s.nextInt());
 					int itemPrice = pi.getProductPrice(item.getProductId());
 					item.setPrice(itemPrice);
-					log.getInput("Enter the Status");
-					item.setStatus(s.next());
+//					log.getInput("Enter the Status");
+//					item.setStatus(s.next());
 					int itemTotalPrice = item.getQuantity() * item.getPrice();
 					item.setTotalAmount(itemTotalPrice);
 					totalBillAmount = totalBillAmount + itemTotalPrice;
@@ -61,11 +61,11 @@ public class billOrdertext {
 			}
 				break;
 			case 2: {
-				log.getInput("Delete bills");
+				log.getInput("cancel bills");
 				BillOrderImple boi = new BillOrderImple();
 				Order bo = new Order();
-				log.getInput("Update bill orders");
-				log.getInput("Enter the customer number");
+				
+				log.getInput("Enter the order_ID");
 				bo.setCustomerno(s.nextInt());
 				boi.deleteBillOrder(bo);
 

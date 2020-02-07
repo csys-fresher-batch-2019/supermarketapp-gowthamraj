@@ -13,7 +13,7 @@ public class ProductStockTest {
 		Scanner s=new Scanner(System.in);
 		do
 		{
-			log.getInput("/t Menu");
+			log.getInput("\t Menu");
 			log.getInput("1.Insert");
 			log.getInput("2.Delete");
 			log.getInput("3.Update");

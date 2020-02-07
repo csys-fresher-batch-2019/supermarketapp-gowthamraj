@@ -14,7 +14,7 @@ public class CustomerCardTest {
 		do
 		{
 		log.getInput("\t Customer card details \n");
-		log.getInput("\n 1.Add csutomer card details \n ");
+		log.getInput("\n 1.Add customer card details \n ");
 		log.getInput("\n 2.Display customer card details \n");
 		log.getInput("\n 3.Delete customer card details\n");
 		log.getInput("\n 4.Update customer card details\n");

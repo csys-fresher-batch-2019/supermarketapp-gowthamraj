@@ -29,7 +29,7 @@ public class LoginTest {
 			log1.setPassword(s.next());
 			in.add(log1);		
 			
-		}
+		}break;
 		case 2:
 		{
 			LoginImple in=new LoginImple();
@@ -46,12 +46,13 @@ public class LoginTest {
 	}
 		log.getInput("Do u want to continue(y/n):press(1/0)");
 		int f=s.nextInt();
-		s.close();
+		
 		if(f==1)
 			flag=1;
 		else
 			flag=0;
 	}while(flag==1);
+		s.close();
 	}
 }
 	

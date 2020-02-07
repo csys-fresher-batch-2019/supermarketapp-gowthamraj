@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class CaseImple implements CaseDAO {
 			log.getInput("Total number of employee in the market  =" + employeeCount);
 		}
 	}
-	catch(Exception e) {
+	catch(SQLException e) {
 		throw new DbException(ErrorConstants.INVALID_SELECT);
 	}
 		return 0;
@@ -45,7 +46,7 @@ public class CaseImple implements CaseDAO {
 		while (rs.next()) {
 			amount = rs.getInt("total_amount");
 		}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
@@ -54,13 +55,13 @@ public class CaseImple implements CaseDAO {
 
 	@Override
 	public int totalIncome(OrderItem bills) throws DbException {
-			String sql = "select sum(total)as daily_income from bills";
+			String sql = "select sum(total)as daily_income from bill_order";
 		int total=0;
 		try(Connection con = ConnectionUtil.getConnection();Statement st = con.createStatement();ResultSet rs = st.executeQuery(sql);){
 		while (rs.next()) {
 			total = rs.getInt("daily_income");
 		}
-	}catch(Exception e)
+	}catch(SQLException e)
 	{
 		throw new DbException(ErrorConstants.INVALID_SELECT);
 	}
@@ -74,10 +75,11 @@ public class CaseImple implements CaseDAO {
 				try(Connection con = ConnectionUtil.getConnection();PreparedStatement ps = con.prepareStatement(sql);ResultSet rs = ps.executeQuery();){
 				ps.setInt(1, min);
 				ps.setInt(2, max);
-				while (rs.next()) {
-					int id = rs.getInt("product_id");
-					String name = rs.getString("product_name");
-					int cost = rs.getInt("price");
+				try(ResultSet rss = ps.executeQuery();){
+				while (rss.next()) {
+					int id = rss.getInt("product_id");
+					String name = rss.getString("product_name");
+					int cost = rss.getInt("price");
 					log.getInput("product_id =" + id + "\t Product name =" + name + "\t price =" + cost);
 					Product p = new Product();
 					p.setPid(id);
@@ -85,7 +87,8 @@ public class CaseImple implements CaseDAO {
 					p.setPrice(cost);
 					list.add(p);
 				}
-				}catch(Exception e)
+				}
+				}catch(SQLException e)
 				{
 					throw new DbException(ErrorConstants.INVALID_SELECT);
 				}				
@@ -109,7 +112,7 @@ public class CaseImple implements CaseDAO {
 				b.setBilldate(pa1);
 				list.add(b);
 			}
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
