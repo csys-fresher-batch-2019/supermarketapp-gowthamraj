@@ -28,7 +28,7 @@ public class BillOrderImple implements BillOrderDAO {
 		
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 		return orderID;
@@ -58,7 +58,7 @@ public class BillOrderImple implements BillOrderDAO {
 			}
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
 	}
@@ -91,7 +91,6 @@ public class BillOrderImple implements BillOrderDAO {
 	@Override
 	public void displayBillOrder(Order billorder) throws DbException {
 		String sql = "select * from bill_order";
-		//List<Order> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();Statement stmt = con.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
 				while (rs.next()) {
 			int pid = rs.getInt("p_id");
