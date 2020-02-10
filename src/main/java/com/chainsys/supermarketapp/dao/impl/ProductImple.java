@@ -28,7 +28,6 @@ public class ProductImple implements ProductDAO {
 		ps.executeUpdate();
 	}
 	catch(SQLException e) {
-		
 		throw new DbException(ErrorConstants.INVALID_ADD);
 	}
 	}
@@ -40,7 +39,6 @@ public class ProductImple implements ProductDAO {
 		ps.executeUpdate();
 		}
 		catch(SQLException e) {
-
 			throw new DbException(ErrorConstants.INVALID_DELETE);
 		}
 	}

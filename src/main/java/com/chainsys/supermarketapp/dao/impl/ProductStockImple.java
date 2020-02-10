@@ -18,10 +18,10 @@ public class ProductStockImple implements ProductStockDAO {
 
 	@Override
 	public void addProductStock(ProductStock productstock) throws DbException {
-		String sql = "insert into product_stock (product_no,stock_id,quantity,product_arrival,expery_date)\r\n"
+		String sql = "insert into product_stock (stock_id,product_no,quantity,product_arrival,expery_date)\r\n"
 				+ "values(pro_no.nextval,?,?,?,?)";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-			ps.setInt(1, productstock.getStockid());
+			ps.setInt(1, productstock.getProductno());
 			ps.setInt(2, productstock.getQuantity());
 			ps.setDate(3, Date.valueOf(productstock.getProductarrival()));
 			ps.setDate(4, Date.valueOf(productstock.getExperydate()));
@@ -45,7 +45,7 @@ public class ProductStockImple implements ProductStockDAO {
 	@Override
 	public void updateProductStock(ProductStock productstock) throws DbException {
 
-		String sql = "update product_stock set quantity=? where product_no=?";
+		String sql = "update product_stock set quantity= quantity - ? where product_no=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getQuantity());
 			ps.setInt(2, productstock.getProductno());
@@ -63,15 +63,16 @@ public class ProductStockImple implements ProductStockDAO {
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
-				int no = rs.getInt("product_no");
+
 				int id = rs.getInt("stock_id");
+				int no = rs.getInt("product_no");
 				int quantity = rs.getInt("quantity");
 				Date ar = rs.getDate("product_arrival");
 				LocalDate pa1 = ar.toLocalDate();
 				Date ar1 = rs.getDate("expery_date");
 				LocalDate ex = ar1.toLocalDate();
 
-				log.getInput("product_no = " + no + "Stock_id = " + id + "Quantity = " + quantity + "product date = "
+				log.getInput("Stock_id = " + id + "Product_no =" + no + "Quantity = " + quantity + "product date = "
 						+ pa1 + "Expery date =" + ex);
 			}
 		} catch (Exception e) {

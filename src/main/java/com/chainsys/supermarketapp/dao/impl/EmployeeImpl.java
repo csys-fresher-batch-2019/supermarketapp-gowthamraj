@@ -28,7 +28,6 @@ public class EmployeeImpl implements EmployeeDAO {
 		pst.setString(5,employee.getAddress());
 		pst.executeUpdate();
 	}
-
 	catch(Exception e) {
 		throw new DbException(ErrorConstants.INVALID_ADD);
 	}

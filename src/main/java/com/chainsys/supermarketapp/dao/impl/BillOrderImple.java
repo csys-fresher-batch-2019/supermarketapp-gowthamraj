@@ -14,6 +14,7 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
+import com.chainsys.supermarketapp.model.ProductStock;
 import com.chainsys.supermarketapp.util.Logger;
 
 public class BillOrderImple implements BillOrderDAO {
@@ -37,14 +38,14 @@ public class BillOrderImple implements BillOrderDAO {
 	}
 
 	@Override
-	public void addBillOrder(Order billorder) throws DbException {
+	public int addBillOrder(Order billorder) throws DbException {
 		int orderId = getNextOrderId();
+		ProductStockImple psi = new ProductStockImple();
 		String sql = "Insert into bill_order (p_id,customer_no,total_amount)values(?,?,?)";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
 			pst.setInt(1, orderId);
 			pst.setInt(2, billorder.getCustomerno());
 			pst.setInt(3, billorder.getTotalAmount());
-			//pst.setString(4,billorder.getStatus());
 			pst.executeUpdate();
 			List<OrderItem> items = billorder.getItems();
 			for (OrderItem orderItem : items) {
@@ -56,14 +57,19 @@ public class BillOrderImple implements BillOrderDAO {
 				pst1.setInt(4, orderItem.getPrice());
 				pst1.setInt(5, orderItem.getTotalAmount());
 				pst1.executeUpdate();
+				
+				ProductStock ps = new ProductStock();
+				ps.setProductno(orderItem.getProductId());
+				ps.setQuantity(orderItem.getQuantity());
+				psi.updateProductStock(ps);
 			}
 			}
 		}
 		catch(SQLException e) {
 			
-			
 			throw new DbException(ErrorConstants.INVALID_ADD);
 		}
+		return orderId;
 	}
 
 	@Override
@@ -78,7 +84,6 @@ public class BillOrderImple implements BillOrderDAO {
 			throw new DbException(ErrorConstants.INVALID_UPDATE);
 		}
 	}
-
 	@Override
 	public void deleteBillOrder(Order billorder) throws DbException {
 		try (Connection con =ConnectionUtil. getConnection(); 	CallableStatement stmt=con.prepareCall("{call cancel_order(?)}");) {
@@ -87,11 +92,10 @@ public class BillOrderImple implements BillOrderDAO {
 		stmt.executeUpdate();
 	}
 	catch(SQLException e) {
-		
+
 		throw new DbException(ErrorConstants.INVALID_DELETE);
 	}
 }
-
 	@Override
 	public void displayBillOrder(Order billorder) throws DbException {
 		String sql = "select * from bill_order";

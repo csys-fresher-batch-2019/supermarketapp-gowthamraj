@@ -20,7 +20,6 @@ import com.chainsys.supermarketapp.util.Logger;
 
 public class CaseImple implements CaseDAO {
 	private static final Logger log=Logger.getInstance();
-	
 
 	@Override
 	public int employeeCount(Employee employee) throws DbException {

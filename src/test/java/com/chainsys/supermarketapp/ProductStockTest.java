@@ -27,8 +27,8 @@ public class ProductStockTest {
 
 			ProductStockImple psi=new ProductStockImple();
 			ProductStock ps = new ProductStock();
-			log.getInput("Enter the stock id");
-			ps.setStockid(s.nextInt());
+			log.getInput("Enter the product id");
+			ps.setProductno(s.nextInt());
 			log.getInput("Enter the quantity of product");
 			ps.setQuantity(s.nextInt());
 			log.getInput("Enter the product arrival Date");
