@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.supermarketapp.dao.ProductStockDAO;
 import com.chainsys.supermarketapp.exception.DbException;
@@ -45,7 +47,19 @@ public class ProductStockImple implements ProductStockDAO {
 	@Override
 	public void updateProductStock(ProductStock productstock) throws DbException {
 
-		String sql = "update product_stock set quantity= quantity - ? where product_no=?";
+		String sql = "update product_stock set quantity= ? where product_no=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setInt(1, productstock.getQuantity());
+			ps.setInt(2, productstock.getProductno());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			throw new DbException(ErrorConstants.INVALID_UPDATE);
+		}
+	}
+	@Override
+	public void updateProductStock1(ProductStock productstock) throws DbException {
+
+		String sql = "update product_stock set quantity=quantity- ? where product_no=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getQuantity());
 			ps.setInt(2, productstock.getProductno());
@@ -56,27 +70,29 @@ public class ProductStockImple implements ProductStockDAO {
 	}
 
 	@Override
-	public void displayProductStock(ProductStock productstock) throws DbException {
+	public List<ProductStock> displayProductStock() throws DbException {
 
 		String sql = "select product_no,stock_id,quantity,product_arrival,expery_date from product_stock";
+		List<ProductStock> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
-
-				int id = rs.getInt("stock_id");
-				int no = rs.getInt("product_no");
-				int quantity = rs.getInt("quantity");
+				ProductStock ps=new ProductStock();
+				ps.setStockid(rs.getInt("stock_id"));
+				ps.setProductno(rs.getInt("product_no"));
+				ps.setQuantity(rs.getInt("quantity"));
 				Date ar = rs.getDate("product_arrival");
 				LocalDate pa1 = ar.toLocalDate();
+				ps.setProductarrival(pa1);
 				Date ar1 = rs.getDate("expery_date");
 				LocalDate ex = ar1.toLocalDate();
-
-				log.getInput("Stock_id = " + id + "Product_no =" + no + "Quantity = " + quantity + "product date = "
-						+ pa1 + "Expery date =" + ex);
+				ps.setExperydate(ex);
+				list.add(ps);
 			}
 		} catch (Exception e) {
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
+		return list;
 	}
 }

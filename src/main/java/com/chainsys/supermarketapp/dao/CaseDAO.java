@@ -9,7 +9,7 @@ import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
 
 public interface CaseDAO {
-	public int employeeCount(Employee employee) throws DbException;
+	public int employeeCount() throws DbException;
 	public int totalIncome(OrderItem bills)throws DbException;
 	public int todayIncome(LocalDate date)throws DbException;
 	public List<Product> productPriceBetween(int min, int max) throws DbException;

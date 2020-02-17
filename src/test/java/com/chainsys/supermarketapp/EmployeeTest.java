@@ -1,5 +1,6 @@
 package com.chainsys.supermarketapp;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import com.chainsys.supermarketapp.dao.impl.EmployeeImpl;
@@ -53,8 +54,11 @@ public class EmployeeTest {
 		log.getInput("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
 		log.getInput("\t select \n");
 		EmployeeImpl ei=new EmployeeImpl();
-		Employee em=new Employee();
-		ei.displayEmployeeDetils(em);
+	
+		List <Employee>ee=ei.displayEmployeeDetils();
+		for (Employee employee : ee) {
+			log.getInput(employee.toString());
+		}
 		}break;
 		case 3:
 		{

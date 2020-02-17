@@ -63,5 +63,10 @@ public class Employee {
 		return "employee [employeeid=" + employeeid + ", employeename=" + employeename + ", dob=" + dob + ", doj=" + doj
 				+ ", mobileno=" + mobileno + ", address=" + address + "]";
 	}
+
+	public void setMobileno(long long1) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

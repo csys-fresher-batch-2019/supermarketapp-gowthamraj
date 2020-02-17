@@ -1,12 +1,13 @@
 package com.chainsys.supermarketapp.dao.impl;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chainsys.supermarketapp.dao.BillOrderDAO;
@@ -14,18 +15,18 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
+
 import com.chainsys.supermarketapp.model.ProductStock;
-import com.chainsys.supermarketapp.util.Logger;
 
 public class BillOrderImple implements BillOrderDAO {
-	private static final Logger log = Logger.getInstance();
+	//private static final Logger log = Logger.getInstance();
 	
 
 		public int getNextOrderId() throws DbException {
 		int orderID = 0;
 		String sql = "select pr_idd_sq.nextval as order_id from dual";
 		try (Connection con =ConnectionUtil. getConnection();Statement stmt = con.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
-		if (rs.next()) {
+		while (rs.next()) {
 			orderID = rs.getInt("order_id");
 		}
 		
@@ -61,7 +62,7 @@ public class BillOrderImple implements BillOrderDAO {
 				ProductStock ps = new ProductStock();
 				ps.setProductno(orderItem.getProductId());
 				ps.setQuantity(orderItem.getQuantity());
-				psi.updateProductStock(ps);
+				psi.updateProductStock1(ps);
 			}
 			}
 		}
@@ -92,27 +93,40 @@ public class BillOrderImple implements BillOrderDAO {
 		stmt.executeUpdate();
 	}
 	catch(SQLException e) {
+		e.printStackTrace();
 
 		throw new DbException(ErrorConstants.INVALID_DELETE);
 	}
 }
 	@Override
-	public void displayBillOrder(Order billorder) throws DbException {
+	public List<Order> displayBillOrder() throws DbException {
 		String sql = "select * from bill_order";
+		List<Order> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();Statement stmt = con.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
-				while (rs.next()) {
-			int pid = rs.getInt("p_id");
-			int cusno = rs.getInt("Customer_no");
-			int total = rs.getInt("total_amount");
-			String status = rs.getString("status");
-			Date ds = rs.getDate("ordered_date");
-			LocalDate pa1 = ds.toLocalDate();
-			log.getInput("billno= " + pid + "customer number = " + cusno + "Total = " + total + "Status ="
-					+ status + "Ordered Date =" + pa1);
+				
+
+			
+		
+		while (rs.next()) {
+			Order or=new Order();
+			or.setOrderId(rs.getInt("p_id"));
+			or.setCustomerno(rs.getInt("Customer_no"));
+			or.setTotalAmount( rs.getInt("total_amount"));
+			or.setStatus(rs.getString("status"));
+					Timestamp ds = rs.getTimestamp("ordered_date");
+			
+			
+
+			or.setOrderedDate(ds.toLocalDateTime());
+	list.add(or);
 		}
 		}
 		catch(SQLException e) {
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 				}
+		return list;
 		}
+
+
+	
 }

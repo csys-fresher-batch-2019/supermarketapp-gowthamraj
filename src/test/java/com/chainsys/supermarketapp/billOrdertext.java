@@ -1,6 +1,7 @@
 package com.chainsys.supermarketapp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 import com.chainsys.supermarketapp.dao.impl.BillOrderImple;
@@ -65,8 +66,8 @@ public class billOrdertext {
 				BillOrderImple boi = new BillOrderImple();
 				Order bo = new Order();
 				
-				log.getInput("Enter the order_ID");
-				bo.setCustomerno(s.nextInt());
+				log.getInput("Enter the customer number");
+				bo.setOrderId(s.nextInt());
 				boi.deleteBillOrder(bo);
 
 			}
@@ -87,8 +88,12 @@ public class billOrdertext {
 			case 4: {
 
 				BillOrderImple boi = new BillOrderImple();
-				Order bo = new Order();
-				boi.displayBillOrder(bo);
+				
+				List<Order> l=boi.displayBillOrder();
+				for (Order p : l) {
+					log.getInput(p.toString());
+				}
+				
 
 			}
 

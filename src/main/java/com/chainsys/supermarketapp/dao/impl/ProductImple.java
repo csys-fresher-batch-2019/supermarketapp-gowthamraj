@@ -33,9 +33,9 @@ public class ProductImple implements ProductDAO {
 	}
 	@Override
 	public void deleteproductDetails(Product product) throws DbException {
-		String sql="Delete from product where product_id=?";
+		String sql="Delete from product where product_name=?";
 		try (Connection con =ConnectionUtil. getConnection();PreparedStatement ps=con.prepareStatement(sql);){
-		ps.setInt(1, product.getPid());
+		ps.setString(1, product.getProductname());
 		ps.executeUpdate();
 		}
 		catch(SQLException e) {

@@ -48,8 +48,8 @@ public class ProductTest {
 		{
 			ProductImple pi=new ProductImple();
 			Product p=new Product();
-			log.getInput("Enter the product ID to Delete");
-			p.setPid(s.nextInt());
+			log.getInput("Enter the product Name");
+			p.setProductname(s.next());
 			pi.deleteproductDetails(p);
 			log.getInput("deleted succesfully");
 		    break;

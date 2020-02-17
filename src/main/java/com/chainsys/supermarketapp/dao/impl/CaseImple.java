@@ -13,7 +13,6 @@ import java.util.List;
 import com.chainsys.supermarketapp.dao.CaseDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
-import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
 import com.chainsys.supermarketapp.util.Logger;
@@ -22,31 +21,38 @@ public class CaseImple implements CaseDAO {
 	private static final Logger log=Logger.getInstance();
 
 	@Override
-	public int employeeCount(Employee employee) throws DbException {
+	public int employeeCount() throws DbException {
 		String sql = "select count(*)  as employee_count from employee";
+		int employeeCount = 0;
 		try(Connection con = ConnectionUtil.getConnection();Statement st1 = con.createStatement();ResultSet rs = st1.executeQuery(sql);){
-		while (rs.next()) {
-			int employeeCount = rs.getInt("employee_count");
+		if (rs.next()) {
+			 employeeCount = rs.getInt("employee_count");
 			log.getInput("Total number of employee in the market  =" + employeeCount);
+			
 		}
-	}
+		}
 	catch(SQLException e) {
 		throw new DbException(ErrorConstants.INVALID_SELECT);
 	}
-		return 0;
+		return employeeCount;
+		
+		
 	}
 	@Override
 	public int todayIncome(LocalDate date) throws DbException {
-		String sql = "select GET_TOTAL_AMOUNT(?)as total_amount from dual";
+		String sql = "select GET_TOTAL_AMOUNT(?) as total_amount from dual";
 		int amount = 0;
-		try(Connection con = ConnectionUtil.getConnection();PreparedStatement st = con.prepareStatement(sql);
-				ResultSet rs = st.executeQuery();){
-		st.setDate(1, Date.valueOf(date));
-		while (rs.next()) {
+		try(Connection con = ConnectionUtil.getConnection();PreparedStatement st = con.prepareStatement(sql);){
+					st.setDate(1, Date.valueOf(date));
+					try(ResultSet rs = st.executeQuery();){
+		while(rs.next()) {
 			amount = rs.getInt("total_amount");
+			System.out.println(amount);
 		}
+					}
 		}catch(SQLException e)
 		{
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 		return amount;
@@ -54,7 +60,7 @@ public class CaseImple implements CaseDAO {
 
 	@Override
 	public int totalIncome(OrderItem bills) throws DbException {
-			String sql = "select sum(total)as daily_income from bill_order";
+			String sql = "select sum(total_amount)as daily_income from bill_order";
 		int total=0;
 		try(Connection con = ConnectionUtil.getConnection();Statement st = con.createStatement();ResultSet rs = st.executeQuery(sql);){
 		while (rs.next()) {
@@ -62,6 +68,7 @@ public class CaseImple implements CaseDAO {
 		}
 	}catch(SQLException e)
 	{
+		
 		throw new DbException(ErrorConstants.INVALID_SELECT);
 	}
 		return total;
@@ -97,7 +104,7 @@ public class CaseImple implements CaseDAO {
 		@Override
 		public List<OrderItem> customerCount(OrderItem bills) throws DbException {
 			
-			String sql="select count(*) as number_of_customer,ordered_date from bill_order group by ordered_date";
+			String sql="select sum(*) as number_of_customer,ordered_date from bill_order group by ordered_date";
 			List<OrderItem> list = new ArrayList<>();
 			try(Connection con=ConnectionUtil.getConnection();Statement st=con.createStatement();ResultSet rs=st.executeQuery(sql);){
 			while (rs.next())
@@ -113,6 +120,7 @@ public class CaseImple implements CaseDAO {
 			}
 		}catch(SQLException e)
 		{
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.chainsys.supermarketapp.dao.impl.CaseImple;
-import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.util.Logger;
 
@@ -23,14 +22,14 @@ public class CaseTest {
 			log.getInput("2.Today income");
 			log.getInput("3.Total Income");
 			log.getInput("5.Number of customer purchase by date");
+			log.getInput("6");
 			log.getInput("Enter u r choice");
 			int choice = s.nextInt();
 			switch (choice) {
 			case 1: {
 				log.getInput("\t Employee count");
 				CaseImple ci = new CaseImple();
-				Employee e = new Employee();
-				ci.employeeCount(e);
+					ci.employeeCount();
 
 			}
 				break;/*
@@ -46,18 +45,21 @@ public class CaseTest {
 					log.getInput(product);
 				}
 			}
-				break;
-			case 2: {
+				break;*/
+			case 6: {
 				log.getInput("\tcustomer card holder purchase\"");
 				CaseImple ci = new CaseImple();
 				OrderItem b=new OrderItem();
-				List<OrderItem>bills=ci.finalBills(b);
-				for (OrderItem bills2 : bills) {
-					log.getInput(bills2.getCustomername() +""+bills2.getTotalAmount());
+				log.getInput(b.getCustomerno());
+				List<OrderItem>bil=ci.customerCount(b);
+				for (OrderItem orderItem : bil) {
+					
+				
+					log.getInput(orderItem.getCustomername() +""+orderItem.getTotalAmount());
 				}
 
 			}
-				break;*/
+				break;
 			case 2: {
 				CaseImple ci = new CaseImple();
 				log.getInput("Enter the date");

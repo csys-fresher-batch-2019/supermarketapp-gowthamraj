@@ -1,5 +1,6 @@
 package com.chainsys.supermarketapp;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import com.chainsys.supermarketapp.dao.impl.ProductStockImple;
@@ -66,10 +67,14 @@ public class ProductStockTest {
 		case 4:
 		{
 			ProductStockImple psi=new ProductStockImple();
-			ProductStock ps = new ProductStock();
-			psi.displayProductStock(ps);
+			List<ProductStock> p=psi.displayProductStock();
+			for (ProductStock pk : p) {
+				log.getInput(pk.toString());
+			}
+				
+			}
 		}	
-		}
+		
 		log.getInput("Do u want to continue(y/n):press(1/0)");
 		int f=s.nextInt();
 		
