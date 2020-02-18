@@ -12,6 +12,6 @@ public interface BillOrderDAO {
 	void updateBillOrder(Order billorder)throws DbException;
 	void deleteBillOrder(Order billorder)throws DbException;
 	void updateBillStatus(int cusno) throws DbException;
-	public List<OrderItem> ViewBillItems(int billNo) throws DbException;
+	public List<OrderItem> viewBillItems(int billNo) throws DbException;
 
 }

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.chainsys.supermarketapp.exception.DbException;
-import com.chainsys.supermarketapp.model.Employee;
 import com.chainsys.supermarketapp.model.OrderItem;
 import com.chainsys.supermarketapp.model.Product;
 

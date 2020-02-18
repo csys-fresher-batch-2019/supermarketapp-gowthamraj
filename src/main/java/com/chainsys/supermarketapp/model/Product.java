@@ -1,14 +1,10 @@
 package com.chainsys.supermarketapp.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Product {
 	private int pid;
 	private String productname;
 	private int price;
 	
-	 private List<Product> item = new ArrayList<>();
 	 
 	public int getPid() {
 		return pid;

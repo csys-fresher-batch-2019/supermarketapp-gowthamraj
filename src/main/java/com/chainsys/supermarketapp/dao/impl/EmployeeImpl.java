@@ -13,12 +13,9 @@ import com.chainsys.supermarketapp.dao.EmployeeDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Employee;
-import com.chainsys.supermarketapp.util.Logger;
 
 public class EmployeeImpl implements EmployeeDAO {
-	private static final Logger log=Logger.getInstance();
-	
-	
+		
 	@Override
 	public void addEmployeeDetils(Employee employee) throws DbException {
 		String sql="insert into employee(employee_id,employee_name,dob,doj,address) values( emp_idd.nextval,?,?,?,?)";

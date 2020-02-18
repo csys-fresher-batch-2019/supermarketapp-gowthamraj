@@ -123,8 +123,6 @@ public class ProductImple implements ProductDAO {
 		stmt.executeUpdate();
 	}
 	catch(SQLException e) {
-		e.printStackTrace();
-
 		throw new DbException(ErrorConstants.INVALID_DELETE);
 	}
 

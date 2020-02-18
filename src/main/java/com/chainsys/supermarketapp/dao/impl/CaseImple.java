@@ -47,12 +47,10 @@ public class CaseImple implements CaseDAO {
 					try(ResultSet rs = st.executeQuery();){
 		while(rs.next()) {
 			amount = rs.getInt("total_amount");
-			System.out.println(amount);
-		}
+			}
 					}
 		}catch(SQLException e)
 		{
-			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 		return amount;
@@ -120,8 +118,7 @@ public class CaseImple implements CaseDAO {
 			}
 		}catch(SQLException e)
 		{
-			e.printStackTrace();
-			throw new DbException(ErrorConstants.INVALID_SELECT);
+					throw new DbException(ErrorConstants.INVALID_SELECT);
 		}
 
 			return list;

@@ -15,13 +15,10 @@ import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.Order;
 import com.chainsys.supermarketapp.model.OrderItem;
-
 import com.chainsys.supermarketapp.model.ProductStock;
 
 public class BillOrderImple implements BillOrderDAO {
-	//private static final Logger log = Logger.getInstance();
 	
-
 		public int getNextOrderId() throws DbException {
 		int orderID = 0;
 		String sql = "select pr_idd_sq.nextval as order_id from dual";
@@ -93,7 +90,7 @@ public class BillOrderImple implements BillOrderDAO {
 		stmt.executeUpdate();
 	}
 	catch(SQLException e) {
-		e.printStackTrace();
+
 
 		throw new DbException(ErrorConstants.INVALID_DELETE);
 	}
@@ -143,7 +140,7 @@ public class BillOrderImple implements BillOrderDAO {
 	
 	
 
-	public List<OrderItem> ViewBillItems(int billNo) throws DbException {
+	public List<OrderItem> viewBillItems(int billNo) throws DbException {
 		String sql ="select bill_item_id,bill_no,product_id,quantity,total_amount from bill_items where bill_no=?";
 		List<OrderItem> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();PreparedStatement pst = con.prepareStatement(sql);){
@@ -167,8 +164,5 @@ public class BillOrderImple implements BillOrderDAO {
 				}
 		return list;
 		}
-	
 
-
-	
 }
