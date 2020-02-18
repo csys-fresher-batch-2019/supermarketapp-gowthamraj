@@ -100,7 +100,7 @@ public class BillOrderImple implements BillOrderDAO {
 }
 	@Override
 	public List<Order> displayBillOrder() throws DbException {
-		String sql = "select * from bill_order";
+		String sql = "select * from bill_order order by p_id desc";
 		List<Order> list = new ArrayList<>();
 		try (Connection con = ConnectionUtil.getConnection();Statement stmt = con.createStatement();ResultSet rs = stmt.executeQuery(sql);) {
 				
@@ -126,6 +126,48 @@ public class BillOrderImple implements BillOrderDAO {
 				}
 		return list;
 		}
+	
+	
+	@Override
+	public void updateBillStatus(int cusno) throws DbException {
+		String sql = "update bill_order set status ='paid' where customer_no=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+		pst.setInt(1, cusno);
+		pst.executeUpdate();
+		}
+		catch(SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_UPDATE);
+		}
+	}
+
+	
+	
+
+	public List<OrderItem> ViewBillItems(int billNo) throws DbException {
+		String sql ="select bill_item_id,bill_no,product_id,quantity,total_amount from bill_items where bill_no=?";
+		List<OrderItem> list = new ArrayList<>();
+		try (Connection con = ConnectionUtil.getConnection();PreparedStatement pst = con.prepareStatement(sql);){
+				pst.setInt(1, billNo);
+			try(ResultSet rs = pst.executeQuery();) {
+						
+		
+		while (rs.next()) {
+			OrderItem oi=new OrderItem();
+			oi.setId(rs.getInt("bill_item_id"));
+			oi.setOrderId(rs.getInt("bill_no"));
+			oi.setProductId(rs.getInt("product_id"));
+			oi.setQuantity(rs.getInt("quantity"));
+			oi.setTotalAmount(rs.getInt("total_amount"));
+			list.add(oi);
+		}
+		}
+		}
+		catch(SQLException e) {
+			throw new DbException(ErrorConstants.INVALID_SELECT);
+				}
+		return list;
+		}
+	
 
 
 	

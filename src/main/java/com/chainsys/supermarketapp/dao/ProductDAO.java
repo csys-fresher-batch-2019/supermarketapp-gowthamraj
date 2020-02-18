@@ -12,4 +12,6 @@ public interface ProductDAO {
 	List<Product> displayproduct()throws DbException;
 	void updateproduct(Product product) throws DbException;
 	int getProductPrice(int productId) throws DbException;
+	List<Product> displayproductAvailable() throws DbException;
+	void deleteproductAll(Product product) throws DbException;
 }

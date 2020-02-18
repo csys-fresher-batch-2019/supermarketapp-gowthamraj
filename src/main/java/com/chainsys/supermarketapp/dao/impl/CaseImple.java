@@ -40,7 +40,7 @@ public class CaseImple implements CaseDAO {
 	}
 	@Override
 	public int todayIncome(LocalDate date) throws DbException {
-		String sql = "select GET_TOTAL_AMOUNT(?) as total_amount from dual";
+		String sql = "select GET_TOTAL_AMOUNT(?) as total_amount from dual ";
 		int amount = 0;
 		try(Connection con = ConnectionUtil.getConnection();PreparedStatement st = con.prepareStatement(sql);){
 					st.setDate(1, Date.valueOf(date));
@@ -60,7 +60,7 @@ public class CaseImple implements CaseDAO {
 
 	@Override
 	public int totalIncome(OrderItem bills) throws DbException {
-			String sql = "select sum(total_amount)as daily_income from bill_order";
+			String sql = "select sum(total_amount)as daily_income from bill_order where status='paid'";
 		int total=0;
 		try(Connection con = ConnectionUtil.getConnection();Statement st = con.createStatement();ResultSet rs = st.executeQuery(sql);){
 		while (rs.next()) {

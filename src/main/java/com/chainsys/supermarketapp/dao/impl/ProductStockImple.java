@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,13 +14,47 @@ import com.chainsys.supermarketapp.dao.ProductStockDAO;
 import com.chainsys.supermarketapp.exception.DbException;
 import com.chainsys.supermarketapp.exception.ErrorConstants;
 import com.chainsys.supermarketapp.model.ProductStock;
-import com.chainsys.supermarketapp.util.Logger;
 
 public class ProductStockImple implements ProductStockDAO {
-	private static final Logger log = Logger.getInstance();
+
+	public boolean isProductExists(int productno) throws DbException {
+		boolean exists = false;
+		String sql1 = "select product_no from product_stock where product_no=?";
+		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement pst = con.prepareStatement(sql1);) {
+			pst.setInt(1, productno);
+			try (ResultSet rs = pst.executeQuery();) {
+				if (rs.next()) {
+					exists = true;
+				}
+			}
+		} catch (Exception e) {
+
+			throw new DbException(ErrorConstants.INVALID_SELECT);
+		}
+		return exists;
+	}
+
+	public boolean getStockProductNo(int productNo) throws DbException
+	{
+		boolean exists = false;
+		//String sql="select product_id FROM product p where product_id in ( select  product_no from product_stock pk where pk.product_no=?)";
+		String sql="select  product_no from product_stock pk where pk.product_no=?";
+		
+		try (Connection con = ConnectionUtil.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery();) {
+			if (rs.next()) {
+				exists = true;
+			}
+	}catch (Exception e) {
+		throw new DbException(ErrorConstants.INVALID_DELETE);
+	}
+		return exists;
+	}
 
 	@Override
 	public void addProductStock(ProductStock productstock) throws DbException {
+
 		String sql = "insert into product_stock (stock_id,product_no,quantity,product_arrival,expery_date)\r\n"
 				+ "values(pro_no.nextval,?,?,?,?)";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -27,9 +62,13 @@ public class ProductStockImple implements ProductStockDAO {
 			ps.setInt(2, productstock.getQuantity());
 			ps.setDate(3, Date.valueOf(productstock.getProductarrival()));
 			ps.setDate(4, Date.valueOf(productstock.getExperydate()));
+
 			ps.executeUpdate();
-		} catch (Exception e) {
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DbException(ErrorConstants.INVALID_ADD);
+
 		}
 	}
 
@@ -47,7 +86,7 @@ public class ProductStockImple implements ProductStockDAO {
 	@Override
 	public void updateProductStock(ProductStock productstock) throws DbException {
 
-		String sql = "update product_stock set quantity= ? where product_no=?";
+		String sql = "update product_stock set quantity=quantity + ? where product_no=?";
 		try (Connection con = ConnectionUtil.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setInt(1, productstock.getQuantity());
 			ps.setInt(2, productstock.getProductno());
@@ -56,6 +95,7 @@ public class ProductStockImple implements ProductStockDAO {
 			throw new DbException(ErrorConstants.INVALID_UPDATE);
 		}
 	}
+
 	@Override
 	public void updateProductStock1(ProductStock productstock) throws DbException {
 
@@ -78,7 +118,7 @@ public class ProductStockImple implements ProductStockDAO {
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);) {
 			while (rs.next()) {
-				ProductStock ps=new ProductStock();
+				ProductStock ps = new ProductStock();
 				ps.setStockid(rs.getInt("stock_id"));
 				ps.setProductno(rs.getInt("product_no"));
 				ps.setQuantity(rs.getInt("quantity"));
