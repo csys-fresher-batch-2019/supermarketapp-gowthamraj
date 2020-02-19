@@ -7,7 +7,7 @@ public class Billorder {
 	private float price;
 	private int quantity;
 	private int billItemId;
-	private int billNo;
+	private int billNo ;
 	public int getProid() {
 		return proid;
 	}
